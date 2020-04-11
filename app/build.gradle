@@ -19,7 +19,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "API_KEY", apikeyProperties['API_KEY'])
+        buildConfigField "String", "API_KEY", apikeyProperties['API_KEY']
+        buildConfigField "String", "BASE_URL", '"https://api.themoviedb.org/3/"'
     }
 
     buildTypes {
@@ -29,6 +30,12 @@ android {
         }
     }
 
+    android {
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+    }
 }
 
 dependencies {
