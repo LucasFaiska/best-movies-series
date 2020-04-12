@@ -8,8 +8,8 @@ class MovieRemoteDataSourceImpl(private val service: MovieService) : MovieRemote
 
     override suspend fun getMovies() = performRequest { service.getMovies() }
 
-    override suspend fun getMovieDetails(movieId: Long) =
-        performRequest { service.getMovieDetail(movieId) }
+    override suspend fun getMovie(movieId: Long) =
+        performRequest { service.getMovie(movieId) }
 
     override suspend fun getSimilarMovies(movieId: Long) =
         performRequest { service.getSimilarMovies(movieId) }

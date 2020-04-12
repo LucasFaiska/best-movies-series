@@ -11,7 +11,7 @@ interface MovieService {
     suspend fun getMovies(): MovieListRemoteEntity
 
     @GET("/movie/{movieId}")
-    suspend fun getMovieDetail(@Path("movieId") movieId: Long): MovieDetailRemoteEntity
+    suspend fun getMovie(@Path("movieId") movieId: Long): MovieDetailRemoteEntity
 
     @GET("/movie/{movieId}/similar")
     suspend fun getSimilarMovies(@Path("movieId") movieId: Long): MovieListRemoteEntity

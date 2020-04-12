@@ -8,8 +8,8 @@ class SerieRemoteDataSourceImpl(private val service: SerieService) : SerieRemote
 
     override suspend fun getSeries() = performRequest { service.getSeries() }
 
-    override suspend fun getSerieDetails(serieId: Long) =
-        performRequest { service.getSerieDetail(serieId) }
+    override suspend fun getSerie(serieId: Long) =
+        performRequest { service.getSerie(serieId) }
 
     override suspend fun getSimilarSerie(serieId: Long) =
         performRequest { service.getSimilarSeries(serieId) }
