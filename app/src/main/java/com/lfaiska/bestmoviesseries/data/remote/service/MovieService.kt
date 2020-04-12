@@ -3,6 +3,7 @@ package com.lfaiska.bestmoviesseries.data.remote.service
 import com.lfaiska.bestmoviesseries.data.remote.entity.MovieDetailRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.MovieListRemoteEntity
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface MovieService {
 
@@ -10,9 +11,9 @@ interface MovieService {
     suspend fun getMovies(): MovieListRemoteEntity
 
     @GET("/movie/{movieId}")
-    suspend fun getMovieDetail(): MovieDetailRemoteEntity
+    suspend fun getMovieDetail(@Path("movieId") movieId: Long): MovieDetailRemoteEntity
 
     @GET("/movie/{movieId}/similar")
-    suspend fun getSimilarSeries(): MovieListRemoteEntity
+    suspend fun getSimilarMovies(@Path("movieId") movieId: Long): MovieListRemoteEntity
 
 }
