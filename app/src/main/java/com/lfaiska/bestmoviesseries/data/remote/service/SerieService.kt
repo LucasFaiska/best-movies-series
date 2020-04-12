@@ -2,7 +2,6 @@ package com.lfaiska.bestmoviesseries.data.remote.service
 
 import com.lfaiska.bestmoviesseries.data.remote.entity.SerieDetailRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.SerieListRemoteEntity
-import com.lfaiska.bestmoviesseries.data.remote.entity.SerieRemoteEntity
 import retrofit2.http.GET
 
 interface SerieService {

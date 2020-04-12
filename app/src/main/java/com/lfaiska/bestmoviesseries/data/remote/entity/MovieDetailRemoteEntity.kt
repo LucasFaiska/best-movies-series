@@ -3,16 +3,16 @@ package com.lfaiska.bestmoviesseries.data.remote.entity
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-data class SerieDetailRemoteEntity(
+data class MovieDetailRemoteEntity(
     val id: Long,
     @SerializedName("backdrop_path")
     val backdropPath: String,
     @SerializedName("created_by")
     val createdBy: List<CreatorRemoteEntity>,
-    @SerializedName("first_air_date")
-    val firstAirDate: Date,
+    @SerializedName("release_date")
+    val releaseDate: Date,
     val genres: List<GenreRemoteEntity>,
-    val name: String,
+    val title: String,
     @SerializedName("poster_path")
     val posterPath: String,
     @SerializedName("number_of_episodes")

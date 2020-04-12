@@ -3,7 +3,7 @@ package com.lfaiska.bestmoviesseries.data.remote.entity
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-data class SerieRemoteEntity(
+data class MovieRemoteEntity(
     val id: Long,
     @SerializedName("poster_path")
     val posterPath: String,
@@ -11,7 +11,7 @@ data class SerieRemoteEntity(
     val voteAverage: Double,
     val popularity: Double,
     val overview: String,
-    val name: String,
-    @SerializedName("first_air_date")
-    val firstAirDate: Date
+    val title: String,
+    @SerializedName("release_date")
+    val releaseDate: Date
 )
