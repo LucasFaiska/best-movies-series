@@ -6,5 +6,5 @@ import com.lfaiska.bestmoviesseries.data.remote.entity.SerieListRemoteEntity
 interface SerieRemoteDataSource {
     suspend fun getSeries(): SerieListRemoteEntity
     suspend fun getSerie(serieId: Long): SerieDetailRemoteEntity
-    suspend fun getSimilarSerie(serieId: Long): SerieListRemoteEntity
+    suspend fun getSimilarSeries(serieId: Long): SerieListRemoteEntity
 }

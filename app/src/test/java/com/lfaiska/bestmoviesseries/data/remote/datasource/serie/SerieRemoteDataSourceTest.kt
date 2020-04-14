@@ -112,7 +112,7 @@ class SerieRemoteDataSourceTest {
     @Test
     fun `when remote data source call service get serie details successfully should return a SerieDetailRemoteEntity`() {
         val serieDetailRemoteEntityMock = mockk<SerieDetailRemoteEntity>()
-        val serieIdMock = mockk<Long>()
+        val serieIdMock = anyLong()
 
         runBlocking {
             coEvery {
@@ -196,6 +196,96 @@ class SerieRemoteDataSourceTest {
 
         coEvery {
             service.getSerie(serieId)
+        } throws httpExceptionMock
+    }
+
+    @Test
+    fun `when remote data source call service get similar series successfully should return a SerieListRemoteEntity`() {
+        val serieListRemoteEntityMock = mockk<SerieListRemoteEntity>()
+        val serieIdMock = anyLong()
+
+        runBlocking {
+            coEvery {
+                service.getSimilarSeries(serieIdMock)
+            } returns serieListRemoteEntityMock
+
+            val result = dataSource.getSimilarSeries(serieIdMock)
+
+            assert(serieListRemoteEntityMock == result)
+
+            coVerify(Ordering.SEQUENCE) {
+                service.getSimilarSeries(serieIdMock)
+            }
+        }
+    }
+
+    @Test(expected = UnauthorizedResourceException::class)
+    fun `when remote data source call service get similar series with 401 http error should throw UnauthorizedResourceException`() {
+        val serieIdMock = anyLong()
+
+        runBlocking {
+            setupGetSimilarSeriesHttpExceptionMock(serieIdMock, 401)
+
+            dataSource.getSimilarSeries(serieIdMock)
+
+            coVerify(Ordering.SEQUENCE) {
+                service.getSimilarSeries(serieIdMock)
+            }
+        }
+    }
+
+    @Test(expected = ResourceNotFoundException::class)
+    fun `when remote data source call service get similar series with 404 http error should throw ResourceNotFoundException`() {
+        val serieIdMock = anyLong()
+
+        runBlocking {
+            setupGetSimilarSeriesHttpExceptionMock(serieIdMock, 404)
+
+            dataSource.getSimilarSeries(serieIdMock)
+
+            coVerify(Ordering.SEQUENCE) {
+                service.getSimilarSeries(serieIdMock)
+            }
+        }
+    }
+
+    @Test(expected = InternalErrorException::class)
+    fun `when remote data source call service get similar series with 500 http error should throw InternalErrorException`() {
+        val serieIdMock = anyLong()
+
+        runBlocking {
+            setupGetSimilarSeriesHttpExceptionMock(serieIdMock, 500)
+
+            dataSource.getSimilarSeries(serieIdMock)
+
+            coVerify(Ordering.SEQUENCE) {
+                service.getSimilarSeries(serieIdMock)
+            }
+        }
+    }
+
+    @Test(expected = UnhandledErrorException::class)
+    fun `when remote data source call service get similar series with another http error should throw UnhandledErrorException`() {
+        val serieIdMock = anyLong()
+
+        runBlocking {
+            setupGetSimilarSeriesHttpExceptionMock(serieIdMock, 417)
+
+            dataSource.getSimilarSeries(serieIdMock)
+
+            coVerify(Ordering.SEQUENCE) {
+                service.getSimilarSeries(serieIdMock)
+            }
+        }
+    }
+
+    private fun setupGetSimilarSeriesHttpExceptionMock(serieId: Long, httpErrorCode: Int) {
+        val httpExceptionMock = mockk<HttpException>()
+
+        every { httpExceptionMock.code() } returns httpErrorCode
+
+        coEvery {
+            service.getSimilarSeries(serieId)
         } throws httpExceptionMock
     }
 }
