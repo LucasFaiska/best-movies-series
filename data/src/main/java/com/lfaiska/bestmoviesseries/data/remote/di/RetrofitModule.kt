@@ -21,7 +21,6 @@ fun provideGson(): Gson {
 
 fun provideHttpClient(): OkHttpClient {
     val okHttpClientBuilder = OkHttpClient.Builder()
-
     return okHttpClientBuilder.build()
 }
 

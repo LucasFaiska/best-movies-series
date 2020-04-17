@@ -2,8 +2,9 @@ package com.lfaiska.bestmoviesserie.data.remote.datasource.serie
 
 import com.lfaiska.bestmoviesseries.data.remote.datasource.serie.SerieRemoteDataSource
 import com.lfaiska.bestmoviesseries.data.remote.datasource.serie.SerieRemoteDataSourceImpl
+import com.lfaiska.bestmoviesseries.data.remote.entity.ListRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.SerieDetailRemoteEntity
-import com.lfaiska.bestmoviesseries.data.remote.entity.SerieListRemoteEntity
+import com.lfaiska.bestmoviesseries.data.remote.entity.SerieRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.exception.InternalErrorException
 import com.lfaiska.bestmoviesseries.data.remote.exception.ResourceNotFoundException
 import com.lfaiska.bestmoviesseries.data.remote.exception.UnauthorizedResourceException
@@ -32,7 +33,7 @@ class SerieRemoteDataSourceTest {
 
     @Test
     fun `when remote data source call service get series successfully should return a SerieListRemoteEntity`() {
-        val serieListRemoteEntityMock = mockk<SerieListRemoteEntity>()
+        val serieListRemoteEntityMock = mockk<ListRemoteEntity<SerieRemoteEntity>>()
 
         runBlocking {
             coEvery {
@@ -203,7 +204,7 @@ class SerieRemoteDataSourceTest {
 
     @Test
     fun `when remote data source call service get similar series successfully should return a SerieListRemoteEntity`() {
-        val serieListRemoteEntityMock = mockk<SerieListRemoteEntity>()
+        val serieListRemoteEntityMock = mockk<ListRemoteEntity<SerieRemoteEntity>>()
         val serieIdMock = anyLong()
 
         runBlocking {
