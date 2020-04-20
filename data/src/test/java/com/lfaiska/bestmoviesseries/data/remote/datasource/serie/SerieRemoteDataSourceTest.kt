@@ -1,4 +1,4 @@
-package com.lfaiska.bestmoviesserie.data.remote.datasource.serie
+package com.lfaiska.bestmoviesseries.data.remote.datasource.serie
 
 import com.lfaiska.bestmoviesseries.data.remote.datasource.serie.SerieRemoteDataSource
 import com.lfaiska.bestmoviesseries.data.remote.datasource.serie.SerieRemoteDataSourceImpl

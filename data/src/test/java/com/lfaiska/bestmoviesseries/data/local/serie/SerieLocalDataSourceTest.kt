@@ -1,4 +1,4 @@
-package com.lfaiska.bestmoviesserie.data.local.serie
+package com.lfaiska.bestmoviesseries.data.local.serie
 
 import com.lfaiska.bestmoviesseries.data.local.dao.SerieDao
 import com.lfaiska.bestmoviesseries.data.local.datasource.serie.SerieLocalDataSource
@@ -10,6 +10,7 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
+import java.lang.Exception
 
 class SerieLocalDataSourceTest {
     private lateinit var dataSource: SerieLocalDataSource
@@ -35,6 +36,27 @@ class SerieLocalDataSourceTest {
             val result = dataSource.getSeries()
 
             assert(serieListLocalEntityMock == result)
+
+            coVerify(Ordering.SEQUENCE) {
+                dao.getSeries()
+            }
+        }
+    }
+
+    @Test
+    fun `when local data source call room get series with a Exceptions should throws it`() {
+        val exceptionMock = mockk<Exception>()
+
+        runBlocking {
+            coEvery {
+                dao.getSeries()
+            } throws exceptionMock
+
+            try {
+                dataSource.getSeries()
+            } catch (exception: Exception) {
+                assert(exceptionMock == exception)
+            }
 
             coVerify(Ordering.SEQUENCE) {
                 dao.getSeries()
