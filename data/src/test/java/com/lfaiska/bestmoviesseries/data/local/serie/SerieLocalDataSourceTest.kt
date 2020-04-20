@@ -63,4 +63,43 @@ class SerieLocalDataSourceTest {
             }
         }
     }
+
+    @Test
+    fun `when local data source call room save series successfully should save a list of SerieLocalEntity on room database`() {
+        val serieListLocalEntityMock = mockk<List<SerieLocalEntity>>()
+
+        runBlocking {
+            coEvery {
+                dao.saveSeries(serieListLocalEntityMock)
+            } returns Unit
+
+            dataSource.saveSeries(serieListLocalEntityMock)
+
+            coVerify(Ordering.SEQUENCE) {
+                dao.saveSeries(serieListLocalEntityMock)
+            }
+        }
+    }
+
+    @Test
+    fun `when local data source call room save series with a Exceptions should throws it`() {
+        val serieListLocalEntityMock = mockk<List<SerieLocalEntity>>()
+        val exceptionMock = mockk<Exception>()
+
+        runBlocking {
+            coEvery {
+                dao.saveSeries(serieListLocalEntityMock)
+            } throws exceptionMock
+
+            try {
+                dataSource.saveSeries(serieListLocalEntityMock)
+            } catch (exception: Exception) {
+                assert(exceptionMock == exception)
+            }
+
+            coVerify(Ordering.SEQUENCE) {
+                dao.saveSeries(serieListLocalEntityMock)
+            }
+        }
+    }
 }

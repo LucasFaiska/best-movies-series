@@ -64,7 +64,7 @@ class MovieLocalDataSourceTest {
     }
 
     @Test
-    fun `when local data source call room save movies successfully should save a list of MovieLocalEntity on local`() {
+    fun `when local data source call room save movies successfully should save a list of MovieLocalEntity on room database`() {
         val movieListLocalEntityMock = mockk<List<MovieLocalEntity>>()
 
         runBlocking {
@@ -73,6 +73,28 @@ class MovieLocalDataSourceTest {
             } returns Unit
 
             dataSource.saveMovies(movieListLocalEntityMock)
+
+            coVerify(Ordering.SEQUENCE) {
+                dao.saveMovies(movieListLocalEntityMock)
+            }
+        }
+    }
+
+    @Test
+    fun `when local data source call room save movies with a Exceptions should throws it`() {
+        val movieListLocalEntityMock = mockk<List<MovieLocalEntity>>()
+        val exceptionMock = mockk<Exception>()
+
+        runBlocking {
+            coEvery {
+                dao.saveMovies(movieListLocalEntityMock)
+            } throws exceptionMock
+
+            try {
+                dataSource.saveMovies(movieListLocalEntityMock)
+            } catch (exception: Exception) {
+                assert(exceptionMock == exception)
+            }
 
             coVerify(Ordering.SEQUENCE) {
                 dao.saveMovies(movieListLocalEntityMock)
