@@ -7,7 +7,7 @@ import com.lfaiska.bestmoviesseries.data.local.entity.SerieLocalEntity
 
 interface SerieDao {
     @Query("SELECT * FROM series")
-    fun getSeries(parameter: Long): List<SerieLocalEntity>
+    fun getSeries(): List<SerieLocalEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveSeries(registers: List<SerieLocalEntity>)
