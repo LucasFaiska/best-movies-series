@@ -7,8 +7,8 @@ import com.lfaiska.bestmoviesseries.data.local.entity.MovieLocalEntity
 
 interface MovieDao {
     @Query("SELECT * FROM movies")
-    fun getMovies(): List<MovieLocalEntity>
+    suspend fun getMovies(): List<MovieLocalEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveMovies(registers: List<MovieLocalEntity>)
+    suspend fun saveMovies(registers: List<MovieLocalEntity>)
 }
