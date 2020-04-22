@@ -13,5 +13,5 @@ data class SerieRemoteEntity(
     val overview: String,
     val name: String,
     @SerializedName("first_air_date")
-    val firstAirDate: Date
+    val firstAirDate: String
 )

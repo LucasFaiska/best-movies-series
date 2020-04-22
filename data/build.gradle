@@ -56,6 +56,8 @@ dependencies {
 
     implementation 'android.arch.persistence.room:runtime:1.1.1'
 
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
+
     testImplementation 'junit:junit:4.13'
     testImplementation "io.mockk:mockk:1.9.3"
 
@@ -67,4 +69,8 @@ dependencies {
     androidTestImplementation 'org.mockito:mockito-android:2.24.5'
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5"
+
+    testImplementation ('org.threeten:threetenbp:1.4.0'){
+        exclude group:'com.jakewharton.threetenabp', module:'threetenabp'
+    }
 }
