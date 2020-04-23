@@ -9,7 +9,7 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "series")
 data class SerieLocalEntity (
     @PrimaryKey
-    val id: Long? = null,
+    val id: Long,
     val posterPath: String,
     val voteAverage: Double,
     val popularity: Double,
