@@ -27,6 +27,7 @@ class ConnectionTest {
     fun testConnectionIsAvailable() {
         runBlocking {
             coEvery {
+                //@TODO Remove this warning
                 socket.connect(
                     InetSocketAddress(ConnectionImpl.HOSTNAME, ConnectionImpl.PORT),
                     ConnectionImpl.TIMEOUT
@@ -42,6 +43,7 @@ class ConnectionTest {
     fun testConnectionIsUnavailable() {
         runBlocking {
             coEvery {
+                //@TODO Remove this warning
                 socket.connect(
                     InetSocketAddress(ConnectionImpl.HOSTNAME, ConnectionImpl.PORT),
                     ConnectionImpl.TIMEOUT
