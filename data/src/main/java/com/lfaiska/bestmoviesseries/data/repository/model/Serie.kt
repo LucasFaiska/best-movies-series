@@ -1,6 +1,6 @@
-package com.lfaiska.bestmoviesseries.data.repository.entity
+package com.lfaiska.bestmoviesseries.data.repository.model
 
-data class SerieDTO (
+data class Serie (
     val id: Long,
     val posterPath: String,
     val voteAverage: Double,

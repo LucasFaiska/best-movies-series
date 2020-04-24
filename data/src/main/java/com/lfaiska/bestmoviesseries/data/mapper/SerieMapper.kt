@@ -3,7 +3,7 @@ package com.lfaiska.bestmoviesseries.data.mapper
 import com.lfaiska.bestmoviesseries.data.local.entity.SerieLocalEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.ListRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.SerieRemoteEntity
-import com.lfaiska.bestmoviesseries.data.repository.entity.SerieDTO
+import com.lfaiska.bestmoviesseries.data.repository.model.Serie
 
 fun ListRemoteEntity<SerieRemoteEntity>.toLocal() =
     this.results.map { serieRemoteEntity ->
@@ -20,10 +20,10 @@ fun ListRemoteEntity<SerieRemoteEntity>.toLocal() =
         }
     }
 
-fun ListRemoteEntity<SerieRemoteEntity>.toDTO() =
+fun ListRemoteEntity<SerieRemoteEntity>.toModel() =
     this.results.map { serieRemoteEntity ->
         with(serieRemoteEntity) {
-            SerieDTO(
+            Serie(
                 id,
                 posterPath,
                 voteAverage,
@@ -35,10 +35,10 @@ fun ListRemoteEntity<SerieRemoteEntity>.toDTO() =
         }
     }
 
-fun List<SerieLocalEntity>.toDTO() =
+fun List<SerieLocalEntity>.toModel() =
     this.map { serieLocalEntity ->
         with(serieLocalEntity) {
-            SerieDTO(
+            Serie(
                 id,
                 posterPath,
                 voteAverage,
