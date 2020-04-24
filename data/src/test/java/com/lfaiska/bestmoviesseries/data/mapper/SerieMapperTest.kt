@@ -3,7 +3,7 @@ package com.lfaiska.bestmoviesseries.data.mapper
 import com.lfaiska.bestmoviesseries.data.local.entity.SerieLocalEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.ListRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.SerieRemoteEntity
-import com.lfaiska.bestmoviesseries.data.repository.model.Serie
+import com.lfaiska.bestmoviesseries.data.repository.serie.SerieModel
 import org.junit.Before
 import org.junit.Test
 
@@ -97,7 +97,7 @@ class SerieMapperTest {
 
         assert(
             seriesListDTOMappedFromRemote[0] ==
-                    Serie(
+                    SerieModel(
                         31917,
                         "/vC324sdfcS313vh9QXwijLIHPJp.jpg",
                         5.04,
@@ -110,7 +110,7 @@ class SerieMapperTest {
 
         assert(
             seriesListDTOMappedFromRemote[1] ==
-                    Serie(
+                    SerieModel(
                         62560,
                         "/esN3gWb1P091xExLddD2nh4zmi3.jpg",
                         7.5,
@@ -128,7 +128,7 @@ class SerieMapperTest {
 
         assert(
             seriesListDTOMappedFromLocal[0] ==
-                    Serie(
+                    SerieModel(
                         31917,
                         "/vC324sdfcS313vh9QXwijLIHPJp.jpg",
                         5.04,
@@ -141,7 +141,7 @@ class SerieMapperTest {
 
         assert(
             seriesListDTOMappedFromLocal[1] ==
-                    Serie(
+                    SerieModel(
                         62560,
                         "/esN3gWb1P091xExLddD2nh4zmi3.jpg",
                         7.5,
