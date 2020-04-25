@@ -1,8 +1,6 @@
 package com.lfaiska.bestmoviesseries.data.mapper
 
 import com.lfaiska.bestmoviesseries.data.local.entity.SerieLocalEntity
-import com.lfaiska.bestmoviesseries.data.mapper.serie.toLocal
-import com.lfaiska.bestmoviesseries.data.mapper.serie.toModel
 import com.lfaiska.bestmoviesseries.data.remote.entity.ListRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.SerieRemoteEntity
 import com.lfaiska.bestmoviesseries.data.repository.serie.SerieModel
@@ -13,6 +11,8 @@ class SerieMapperTest {
 
     lateinit var remoteSerieList: ListRemoteEntity<SerieRemoteEntity>
     lateinit var localSerieList: List<SerieLocalEntity>
+
+    val mapper = SerieMapper()
 
     @Before
     fun setup() {
@@ -64,7 +64,7 @@ class SerieMapperTest {
 
     @Test
     fun testRemoteToLocal() {
-        val seriesListLocalMappedFromRemote = remoteSerieList.toLocal()
+        val seriesListLocalMappedFromRemote = mapper.mapRemoteToLocal(remoteSerieList)
 
         assert(
             seriesListLocalMappedFromRemote[0] ==
@@ -95,7 +95,7 @@ class SerieMapperTest {
 
     @Test
     fun testRemoteToModel() {
-        val seriesListDTOMappedFromRemote = remoteSerieList.toModel()
+        val seriesListDTOMappedFromRemote = mapper.mapRemoteToModel(remoteSerieList)
 
         assert(
             seriesListDTOMappedFromRemote[0] ==
@@ -126,7 +126,7 @@ class SerieMapperTest {
 
     @Test
     fun testLocalToModel() {
-        val seriesListDTOMappedFromLocal = localSerieList.toModel()
+        val seriesListDTOMappedFromLocal = mapper.mapLocalToModel(localSerieList)
 
         assert(
             seriesListDTOMappedFromLocal[0] ==
