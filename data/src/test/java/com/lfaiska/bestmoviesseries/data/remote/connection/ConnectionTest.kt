@@ -1,7 +1,7 @@
 package com.lfaiska.bestmoviesseries.data.remote.connection
 
 import io.mockk.MockKAnnotations
-import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -25,15 +25,14 @@ class ConnectionTest {
 
     @Test
     fun testConnectionIsAvailable() {
-        runBlocking {
-            coEvery {
-                //@TODO Remove this warning
-                socket.connect(
-                    InetSocketAddress(ConnectionImpl.HOSTNAME, ConnectionImpl.PORT),
-                    ConnectionImpl.TIMEOUT
-                )
-            } returns Unit
+        every {
+            socket.connect(
+                InetSocketAddress(ConnectionImpl.HOSTNAME, ConnectionImpl.PORT),
+                ConnectionImpl.TIMEOUT
+            )
+        } returns Unit
 
+        runBlocking {
             val result = connection.isAvailable()
             assert(result)
         }
@@ -41,15 +40,14 @@ class ConnectionTest {
 
     @Test
     fun testConnectionIsUnavailable() {
-        runBlocking {
-            coEvery {
-                //@TODO Remove this warning
-                socket.connect(
-                    InetSocketAddress(ConnectionImpl.HOSTNAME, ConnectionImpl.PORT),
-                    ConnectionImpl.TIMEOUT
-                )
-            } throws IOException()
+        every {
+            socket.connect(
+                InetSocketAddress(ConnectionImpl.HOSTNAME, ConnectionImpl.PORT),
+                ConnectionImpl.TIMEOUT
+            )
+        } throws IOException()
 
+        runBlocking {
             val result = connection.isAvailable()
             assert(!result)
         }
