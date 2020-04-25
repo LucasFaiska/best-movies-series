@@ -1,6 +1,8 @@
 package com.lfaiska.bestmoviesseries.data.mapper
 
 import com.lfaiska.bestmoviesseries.data.local.entity.SerieLocalEntity
+import com.lfaiska.bestmoviesseries.data.mapper.serie.toLocal
+import com.lfaiska.bestmoviesseries.data.mapper.serie.toModel
 import com.lfaiska.bestmoviesseries.data.remote.entity.ListRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.SerieRemoteEntity
 import com.lfaiska.bestmoviesseries.data.repository.serie.SerieModel
