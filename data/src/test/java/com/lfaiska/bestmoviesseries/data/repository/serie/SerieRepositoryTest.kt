@@ -2,12 +2,14 @@ package com.lfaiska.bestmoviesseries.data.repository.serie
 
 import com.lfaiska.bestmoviesseries.data.local.datasource.serie.SerieLocalDataSource
 import com.lfaiska.bestmoviesseries.data.local.entity.SerieLocalEntity
+import com.lfaiska.bestmoviesseries.data.mapper.SerieListMapper
 import com.lfaiska.bestmoviesseries.data.remote.connection.Connection
 import com.lfaiska.bestmoviesseries.data.remote.datasource.serie.SerieRemoteDataSource
 import com.lfaiska.bestmoviesseries.data.remote.entity.ListRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.SerieRemoteEntity
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
@@ -27,10 +29,13 @@ class SerieRepositoryTest {
     @MockK
     lateinit var connection: Connection
 
+    @MockK
+    lateinit var listMapper: SerieListMapper
+
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        //repository = SerieRepositoryImpl(remote, local, connection)
+        repository = SerieRepositoryImpl(remote, local, connection, listMapper)
     }
 
     @Test
@@ -41,6 +46,9 @@ class SerieRepositoryTest {
         val serieModelListMocked = mockk<List<SerieModel>>(relaxUnitFun = true)
 
         runBlocking {
+            every { listMapper.mapRemoteToLocal(serieRemoteListMocked) } returns serieLocalListMocked
+            every { listMapper.mapRemoteToModel(serieRemoteListMocked) } returns serieModelListMocked
+
             coEvery {
                 connection.isAvailable()
             } returns true

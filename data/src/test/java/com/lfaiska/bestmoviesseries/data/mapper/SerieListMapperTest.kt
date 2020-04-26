@@ -7,12 +7,12 @@ import com.lfaiska.bestmoviesseries.data.repository.serie.SerieModel
 import org.junit.Before
 import org.junit.Test
 
-class SerieMapperTest {
+class SerieListMapperTest {
 
     lateinit var remoteSerieList: ListRemoteEntity<SerieRemoteEntity>
     lateinit var localSerieList: List<SerieLocalEntity>
 
-    val mapper = SerieMapper()
+    val mapper = SerieListMapper()
 
     @Before
     fun setup() {
@@ -97,8 +97,10 @@ class SerieMapperTest {
     fun testRemoteToModel() {
         val seriesListDTOMappedFromRemote = mapper.mapRemoteToModel(remoteSerieList)
 
+        assert(seriesListDTOMappedFromRemote.page == remoteSerieList.page)
+
         assert(
-            seriesListDTOMappedFromRemote[0] ==
+            seriesListDTOMappedFromRemote.results[0] ==
                     SerieModel(
                         31917,
                         "/vC324sdfcS313vh9QXwijLIHPJp.jpg",
@@ -111,7 +113,7 @@ class SerieMapperTest {
         )
 
         assert(
-            seriesListDTOMappedFromRemote[1] ==
+            seriesListDTOMappedFromRemote.results[1] ==
                     SerieModel(
                         62560,
                         "/esN3gWb1P091xExLddD2nh4zmi3.jpg",
@@ -128,8 +130,10 @@ class SerieMapperTest {
     fun testLocalToModel() {
         val seriesListDTOMappedFromLocal = mapper.mapLocalToModel(localSerieList)
 
+        assert(seriesListDTOMappedFromLocal.page == 0)
+
         assert(
-            seriesListDTOMappedFromLocal[0] ==
+            seriesListDTOMappedFromLocal.results[0] ==
                     SerieModel(
                         31917,
                         "/vC324sdfcS313vh9QXwijLIHPJp.jpg",
@@ -142,7 +146,7 @@ class SerieMapperTest {
         )
 
         assert(
-            seriesListDTOMappedFromLocal[1] ==
+            seriesListDTOMappedFromLocal.results[1] ==
                     SerieModel(
                         62560,
                         "/esN3gWb1P091xExLddD2nh4zmi3.jpg",
