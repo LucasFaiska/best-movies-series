@@ -4,21 +4,22 @@ import com.lfaiska.bestmoviesseries.data.local.datasource.serie.SerieLocalDataSo
 import com.lfaiska.bestmoviesseries.data.mapper.SerieListMapper
 import com.lfaiska.bestmoviesseries.data.remote.connection.Connection
 import com.lfaiska.bestmoviesseries.data.remote.datasource.serie.SerieRemoteDataSource
+import com.lfaiska.bestmoviesseries.data.repository.base.ListModel
 
 class SerieRepositoryImpl(
     val remote: SerieRemoteDataSource,
     val local: SerieLocalDataSource,
     val connection: Connection,
-    val listMapper: SerieListMapper
+    val mapper: SerieListMapper
 ) : SerieRepository {
 
-    /*override suspend fun getSeries() : List<SerieModel> {
+    override suspend fun getSeries(): ListModel<SerieModel> {
         return if (connection.isAvailable()) {
-            val series = remote.getSeries()
-            local.saveSeries(listMapper.mapRemoteToLocal(series.results))
-            listMapper.mapRemoteToModel(series.results)
+            val serieList = remote.getSeries()
+            local.saveSeries(mapper.mapRemoteToLocal(serieList))
+            mapper.mapRemoteToModel(serieList)
         } else {
-            listMapper.mapLocalToModel(local.getSeries())
+            mapper.mapLocalToModel(local.getSeries())
         }
-    }*/
+    }
 }

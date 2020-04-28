@@ -7,11 +7,9 @@ import com.lfaiska.bestmoviesseries.data.remote.connection.Connection
 import com.lfaiska.bestmoviesseries.data.remote.datasource.serie.SerieRemoteDataSource
 import com.lfaiska.bestmoviesseries.data.remote.entity.ListRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.SerieRemoteEntity
-import io.mockk.MockKAnnotations
-import io.mockk.coEvery
-import io.mockk.every
+import com.lfaiska.bestmoviesseries.data.repository.base.ListModel
+import io.mockk.*
 import io.mockk.impl.annotations.MockK
-import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -30,44 +28,39 @@ class SerieRepositoryTest {
     lateinit var connection: Connection
 
     @MockK
-    lateinit var listMapper: SerieListMapper
+    lateinit var mapper: SerieListMapper
 
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        repository = SerieRepositoryImpl(remote, local, connection, listMapper)
+        repository = SerieRepositoryImpl(remote, local, connection, mapper)
     }
 
     @Test
     fun `when repository calls getSeries and there is connection available should retrieve a List of SerieModel from remote and save a List of SerieLocalEntity on local`() {
-        /*val listRemoteEntityMocked = mockk<ListRemoteEntity<SerieRemoteEntity>>(relaxUnitFun = true)
-        val serieRemoteListMocked = mockk<List<SerieRemoteEntity>>(relaxUnitFun = true)
-        val serieLocalListMocked = mockk<List<SerieLocalEntity>>(relaxUnitFun = true)
-        val serieModelListMocked = mockk<List<SerieModel>>(relaxUnitFun = true)
+        val serieListModel = mockk<ListModel<SerieModel>>()
+        val serieListLocal = mockk<List<SerieLocalEntity>>()
+        val serieListRemote = mockk<ListRemoteEntity<SerieRemoteEntity>>()
 
         runBlocking {
-            every { listMapper.mapRemoteToLocal(serieRemoteListMocked) } returns serieLocalListMocked
-            every { listMapper.mapRemoteToModel(serieRemoteListMocked) } returns serieModelListMocked
-
-            coEvery {
-                connection.isAvailable()
-            } returns true
-
-            coEvery {
-                remote.getSeries()
-            } returns listRemoteEntityMocked
-
-            coEvery {
-                listRemoteEntityMocked.results
-            } returns serieRemoteListMocked
-
-            coEvery {
-                local.saveSeries(serieLocalListMocked)
-            } returns Unit
+            every { mapper.mapLocalToModel(serieListLocal) } returns serieListModel
+            every { mapper.mapRemoteToLocal(serieListRemote) } returns serieListLocal
+            every { mapper.mapRemoteToModel(serieListRemote) } returns serieListModel
+            coEvery { connection.isAvailable() } returns true
+            coEvery { remote.getSeries() } returns serieListRemote
+            coEvery { local.saveSeries(serieListLocal) } returns Unit
 
             val result = repository.getSeries()
 
-            assert(result == serieRemoteListMocked)
-        }*/
+            assert(result == serieListModel)
+
+            coVerify(Ordering.SEQUENCE) {
+                connection.isAvailable()
+                remote.getSeries()
+                mapper.mapRemoteToLocal(serieListRemote)
+                local.saveSeries(serieListLocal)
+                mapper.mapRemoteToModel(serieListRemote)
+            }
+        }
     }
 }
