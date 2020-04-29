@@ -1,4 +1,3 @@
 rootProject.name='Best Movies and Series'
 include ':presentation'
 include ':data'
-include ':data'
