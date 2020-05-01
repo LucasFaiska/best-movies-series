@@ -37,7 +37,7 @@ class SerieRepositoryTest {
     }
 
     @Test
-    fun `when repository calls getSeries and there is connection available should retrieve a List of SerieModel from remote and save a List of SerieLocalEntity on local`() {
+    fun `when repository calls getSeries and there is connection available should retrieve a ListModel of SerieModel from remote and save a List of SerieLocalEntity on local`() {
         val serieListModel = mockk<ListModel<SerieModel>>()
         val serieListLocal = mockk<List<SerieLocalEntity>>()
         val serieListRemote = mockk<ListRemoteEntity<SerieRemoteEntity>>()
@@ -60,6 +60,55 @@ class SerieRepositoryTest {
                 mapper.mapRemoteToLocal(serieListRemote)
                 local.saveSeries(serieListLocal)
                 mapper.mapRemoteToModel(serieListRemote)
+            }
+        }
+    }
+
+    @Test
+    fun `when repository calls getSeries and there is no connection available should returns a ListModel of SerieModel from local`() {
+        val serieListModel = mockk<ListModel<SerieModel>>()
+        val serieListLocal = mockk<List<SerieLocalEntity>>()
+
+        runBlocking {
+            every { mapper.mapLocalToModel(serieListLocal) } returns serieListModel
+            coEvery { connection.isAvailable() } returns false
+            coEvery { local.getSeries() } returns serieListLocal
+
+            val result = repository.getSeries()
+
+            assert(result == serieListModel)
+
+            coVerify(Ordering.SEQUENCE) {
+                connection.isAvailable()
+                local.getSeries()
+                mapper.mapLocalToModel(serieListLocal)
+            }
+        }
+    }
+
+    @Test
+    fun `when repository calls getSeries and remote getSeries throws a exception should throws a SerieRepositoryException with method value getSeries`() {
+        val serieListModel = mockk<ListModel<SerieModel>>()
+        val serieListLocal = mockk<List<SerieLocalEntity>>()
+        val serieListRemote = mockk<ListRemoteEntity<SerieRemoteEntity>>()
+
+        runBlocking {
+            every { mapper.mapLocalToModel(serieListLocal) } returns serieListModel
+            every { mapper.mapRemoteToLocal(serieListRemote) } returns serieListLocal
+            every { mapper.mapRemoteToModel(serieListRemote) } returns serieListModel
+            coEvery { connection.isAvailable() } returns true
+            coEvery { remote.getSeries() } throws Exception()
+            coEvery { local.saveSeries(serieListLocal) } returns Unit
+
+            try {
+                repository.getSeries()
+            } catch (exception: SerieRepositoryException) {
+                assert(exception.method == "getSeries")
+            }
+
+            coVerify(Ordering.SEQUENCE) {
+                connection.isAvailable()
+                remote.getSeries()
             }
         }
     }

@@ -5,6 +5,7 @@ import com.lfaiska.bestmoviesseries.data.mapper.SerieListMapper
 import com.lfaiska.bestmoviesseries.data.remote.connection.Connection
 import com.lfaiska.bestmoviesseries.data.remote.datasource.serie.SerieRemoteDataSource
 import com.lfaiska.bestmoviesseries.data.repository.base.ListModel
+import java.lang.Exception
 
 class SerieRepositoryImpl(
     val remote: SerieRemoteDataSource,
@@ -14,12 +15,16 @@ class SerieRepositoryImpl(
 ) : SerieRepository {
 
     override suspend fun getSeries(): ListModel<SerieModel> {
-        return if (connection.isAvailable()) {
-            val serieList = remote.getSeries()
-            local.saveSeries(mapper.mapRemoteToLocal(serieList))
-            mapper.mapRemoteToModel(serieList)
-        } else {
-            mapper.mapLocalToModel(local.getSeries())
+        return try {
+            if (connection.isAvailable()) {
+                val serieList = remote.getSeries()
+                local.saveSeries(mapper.mapRemoteToLocal(serieList))
+                mapper.mapRemoteToModel(serieList)
+            } else {
+                mapper.mapLocalToModel(local.getSeries())
+            }
+        } catch (exception: Exception) {
+            throw SerieRepositoryException(method = "getSeries")
         }
     }
 }
