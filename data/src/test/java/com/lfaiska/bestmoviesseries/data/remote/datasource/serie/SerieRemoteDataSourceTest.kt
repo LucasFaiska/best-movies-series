@@ -1,6 +1,6 @@
 package com.lfaiska.bestmoviesseries.data.remote.datasource.serie
 
-import com.lfaiska.bestmoviesseries.data.remote.entity.ListRemoteEntity
+import com.lfaiska.bestmoviesseries.data.remote.entity.PagedListRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.SerieDetailRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.SerieRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.exception.InternalErrorException
@@ -32,7 +32,7 @@ class SerieRemoteDataSourceTest {
 
     @Test
     fun `when remote data source call service get series successfully should return a SerieListRemoteEntity`() {
-        val serieListRemoteEntityMock = mockk<ListRemoteEntity<SerieRemoteEntity>>()
+        val serieListRemoteEntityMock = mockk<PagedListRemoteEntity<SerieRemoteEntity>>()
 
         runBlocking {
             coEvery {
@@ -203,7 +203,7 @@ class SerieRemoteDataSourceTest {
 
     @Test
     fun `when remote data source call service get similar series successfully should return a SerieListRemoteEntity`() {
-        val serieListRemoteEntityMock = mockk<ListRemoteEntity<SerieRemoteEntity>>()
+        val serieListRemoteEntityMock = mockk<PagedListRemoteEntity<SerieRemoteEntity>>()
         val serieIdMock = anyLong()
 
         runBlocking {

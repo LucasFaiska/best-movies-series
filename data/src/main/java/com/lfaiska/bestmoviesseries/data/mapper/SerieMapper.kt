@@ -1,15 +1,15 @@
 package com.lfaiska.bestmoviesseries.data.mapper
 
 import com.lfaiska.bestmoviesseries.data.local.entity.SerieLocalEntity
-import com.lfaiska.bestmoviesseries.data.remote.entity.ListRemoteEntity
+import com.lfaiska.bestmoviesseries.data.remote.entity.PagedListRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.SerieRemoteEntity
-import com.lfaiska.bestmoviesseries.data.repository.base.ListModel
+import com.lfaiska.bestmoviesseries.data.repository.base.PagedListModel
 import com.lfaiska.bestmoviesseries.data.repository.serie.SerieModel
 
-class SerieListMapper :
-    Mapper<ListRemoteEntity<SerieRemoteEntity>, List<SerieLocalEntity>, ListModel<SerieModel>> {
+class SerieMapper :
+    Mapper<PagedListRemoteEntity<SerieRemoteEntity>, List<SerieLocalEntity>, PagedListModel<SerieModel>> {
 
-    override fun mapRemoteToLocal(remote: ListRemoteEntity<SerieRemoteEntity>) =
+    override fun mapRemoteToLocal(remote: PagedListRemoteEntity<SerieRemoteEntity>) =
         remote.results.map { serieRemoteEntity ->
             with(serieRemoteEntity) {
                 SerieLocalEntity(
@@ -24,9 +24,9 @@ class SerieListMapper :
             }
         }
 
-    override fun mapRemoteToModel(remote: ListRemoteEntity<SerieRemoteEntity>) =
+    override fun mapRemoteToModel(remote: PagedListRemoteEntity<SerieRemoteEntity>) =
         with(remote) {
-            ListModel(
+            PagedListModel(
                 page,
                 remote.results.map { serieRemoteEntity ->
                     with(serieRemoteEntity) {
@@ -45,7 +45,7 @@ class SerieListMapper :
         }
 
     override fun mapLocalToModel(local: List<SerieLocalEntity>) =
-        ListModel(
+        PagedListModel(
             0,
             local.map { serieLocalEntity ->
                 with(serieLocalEntity) {

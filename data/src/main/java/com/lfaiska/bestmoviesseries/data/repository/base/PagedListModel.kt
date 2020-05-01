@@ -1,3 +1,3 @@
 package com.lfaiska.bestmoviesseries.data.repository.base
 
-class ListModel<T> (val page: Int, val results: List<T>)
+class PagedListModel<T>(val page: Int, val items: List<T>)

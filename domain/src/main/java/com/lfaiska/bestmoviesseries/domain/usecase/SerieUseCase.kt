@@ -1,12 +1,13 @@
 package com.lfaiska.bestmoviesseries.domain.usecase
 
-import com.lfaiska.bestmoviesseries.data.repository.base.ListModel
-import com.lfaiska.bestmoviesseries.data.repository.serie.SerieModel
 import com.lfaiska.bestmoviesseries.data.repository.serie.SerieRepository
+import com.lfaiska.bestmoviesseries.domain.mapper.SerieMapper
+import com.lfaiska.bestmoviesseries.domain.model.PagedList
+import com.lfaiska.bestmoviesseries.domain.model.Serie
 
-class SerieUseCase(val repository: SerieRepository) {
+class SerieUseCase(private val repository: SerieRepository, val mapper: SerieMapper) {
 
-    suspend fun getSeries(page: Int): ListModel<SerieModel> {
-        return repository.getSeries(page)
+    suspend fun getSeries(page: Int): PagedList<Serie> {
+        return mapper.mapSeriePagedList(repository.getSeries(page))
     }
 }

@@ -2,12 +2,12 @@ package com.lfaiska.bestmoviesseries.data.repository.serie
 
 import com.lfaiska.bestmoviesseries.data.local.datasource.serie.SerieLocalDataSource
 import com.lfaiska.bestmoviesseries.data.local.entity.SerieLocalEntity
-import com.lfaiska.bestmoviesseries.data.mapper.SerieListMapper
+import com.lfaiska.bestmoviesseries.data.mapper.SerieMapper
 import com.lfaiska.bestmoviesseries.data.remote.connection.Connection
 import com.lfaiska.bestmoviesseries.data.remote.datasource.serie.SerieRemoteDataSource
-import com.lfaiska.bestmoviesseries.data.remote.entity.ListRemoteEntity
+import com.lfaiska.bestmoviesseries.data.remote.entity.PagedListRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.SerieRemoteEntity
-import com.lfaiska.bestmoviesseries.data.repository.base.ListModel
+import com.lfaiska.bestmoviesseries.data.repository.base.PagedListModel
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.runBlocking
@@ -29,7 +29,7 @@ class SerieRepositoryTest {
     lateinit var connection: Connection
 
     @MockK
-    lateinit var mapper: SerieListMapper
+    lateinit var mapper: SerieMapper
 
     @Before
     fun setup() {
@@ -39,9 +39,9 @@ class SerieRepositoryTest {
 
     @Test
     fun `when repository calls getSeries and there is connection available should retrieve a ListModel of SerieModel from remote and save a List of SerieLocalEntity on local`() {
-        val serieListModel = mockk<ListModel<SerieModel>>()
+        val serieListModel = mockk<PagedListModel<SerieModel>>()
         val serieListLocal = mockk<List<SerieLocalEntity>>()
-        val serieListRemote = mockk<ListRemoteEntity<SerieRemoteEntity>>()
+        val serieListRemote = mockk<PagedListRemoteEntity<SerieRemoteEntity>>()
 
         runBlocking {
             every { mapper.mapLocalToModel(serieListLocal) } returns serieListModel
@@ -67,7 +67,7 @@ class SerieRepositoryTest {
 
     @Test
     fun `when repository calls getSeries and there is no connection available should returns a ListModel of SerieModel from local`() {
-        val serieListModel = mockk<ListModel<SerieModel>>()
+        val serieListModel = mockk<PagedListModel<SerieModel>>()
         val serieListLocal = mockk<List<SerieLocalEntity>>()
 
         runBlocking {
@@ -89,9 +89,9 @@ class SerieRepositoryTest {
 
     @Test
     fun `when repository calls getSeries and remote getSeries throws a exception should throws a SerieRepositoryException with method value getSeries`() {
-        val serieListModel = mockk<ListModel<SerieModel>>()
+        val serieListModel = mockk<PagedListModel<SerieModel>>()
         val serieListLocal = mockk<List<SerieLocalEntity>>()
-        val serieListRemote = mockk<ListRemoteEntity<SerieRemoteEntity>>()
+        val serieListRemote = mockk<PagedListRemoteEntity<SerieRemoteEntity>>()
 
         runBlocking {
             every { mapper.mapLocalToModel(serieListLocal) } returns serieListModel

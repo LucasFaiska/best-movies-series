@@ -1,8 +1,6 @@
 package com.lfaiska.bestmoviesseries.data.remote.datasource.movie
 
-import com.lfaiska.bestmoviesseries.data.remote.datasource.movie.MovieRemoteDataSource
-import com.lfaiska.bestmoviesseries.data.remote.datasource.movie.MovieRemoteDataSourceImpl
-import com.lfaiska.bestmoviesseries.data.remote.entity.ListRemoteEntity
+import com.lfaiska.bestmoviesseries.data.remote.entity.PagedListRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.MovieDetailRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.MovieRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.exception.InternalErrorException
@@ -33,7 +31,7 @@ class MovieRemoteDataSourceTest {
 
     @Test
     fun `when remote data source call service get movies successfully should return a list of MovieRemoteEntity`() {
-        val movieListRemoteEntityMock = mockk<ListRemoteEntity<MovieRemoteEntity>>()
+        val movieListRemoteEntityMock = mockk<PagedListRemoteEntity<MovieRemoteEntity>>()
 
         runBlocking {
             coEvery {
@@ -204,7 +202,7 @@ class MovieRemoteDataSourceTest {
 
     @Test
     fun `when remote data source call service get similar movies successfully should return a list of MovieRemoteEntity`() {
-        val movieListRemoteEntityMock = mockk<ListRemoteEntity<MovieRemoteEntity>>()
+        val movieListRemoteEntityMock = mockk<PagedListRemoteEntity<MovieRemoteEntity>>()
         val movieIdMock = anyLong()
 
         runBlocking {

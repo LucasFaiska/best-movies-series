@@ -1,22 +1,22 @@
 package com.lfaiska.bestmoviesseries.data.mapper
 
 import com.lfaiska.bestmoviesseries.data.local.entity.SerieLocalEntity
-import com.lfaiska.bestmoviesseries.data.remote.entity.ListRemoteEntity
+import com.lfaiska.bestmoviesseries.data.remote.entity.PagedListRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.SerieRemoteEntity
 import com.lfaiska.bestmoviesseries.data.repository.serie.SerieModel
 import org.junit.Before
 import org.junit.Test
 
-class SerieListMapperTest {
+class SerieMapperTest {
 
-    lateinit var remoteSerieList: ListRemoteEntity<SerieRemoteEntity>
+    lateinit var remoteSerieList: PagedListRemoteEntity<SerieRemoteEntity>
     lateinit var localSerieList: List<SerieLocalEntity>
 
-    val mapper = SerieListMapper()
+    val mapper = SerieMapper()
 
     @Before
     fun setup() {
-        remoteSerieList = ListRemoteEntity(
+        remoteSerieList = PagedListRemoteEntity(
             page = 0,
             results = listOf(
                 SerieRemoteEntity(
@@ -100,7 +100,7 @@ class SerieListMapperTest {
         assert(seriesListDTOMappedFromRemote.page == remoteSerieList.page)
 
         assert(
-            seriesListDTOMappedFromRemote.results[0] ==
+            seriesListDTOMappedFromRemote.items[0] ==
                     SerieModel(
                         31917,
                         "/vC324sdfcS313vh9QXwijLIHPJp.jpg",
@@ -113,7 +113,7 @@ class SerieListMapperTest {
         )
 
         assert(
-            seriesListDTOMappedFromRemote.results[1] ==
+            seriesListDTOMappedFromRemote.items[1] ==
                     SerieModel(
                         62560,
                         "/esN3gWb1P091xExLddD2nh4zmi3.jpg",
@@ -133,7 +133,7 @@ class SerieListMapperTest {
         assert(seriesListDTOMappedFromLocal.page == 0)
 
         assert(
-            seriesListDTOMappedFromLocal.results[0] ==
+            seriesListDTOMappedFromLocal.items[0] ==
                     SerieModel(
                         31917,
                         "/vC324sdfcS313vh9QXwijLIHPJp.jpg",
@@ -146,7 +146,7 @@ class SerieListMapperTest {
         )
 
         assert(
-            seriesListDTOMappedFromLocal.results[1] ==
+            seriesListDTOMappedFromLocal.items[1] ==
                     SerieModel(
                         62560,
                         "/esN3gWb1P091xExLddD2nh4zmi3.jpg",
