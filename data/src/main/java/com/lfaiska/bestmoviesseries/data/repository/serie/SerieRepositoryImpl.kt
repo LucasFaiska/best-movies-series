@@ -14,10 +14,10 @@ class SerieRepositoryImpl(
     val mapper: SerieListMapper
 ) : SerieRepository {
 
-    override suspend fun getSeries(): ListModel<SerieModel> {
+    override suspend fun getSeries(page: Int): ListModel<SerieModel> {
         return try {
             if (connection.isAvailable()) {
-                val serieList = remote.getSeries()
+                val serieList = remote.getSeries(page)
                 local.saveSeries(mapper.mapRemoteToLocal(serieList))
                 mapper.mapRemoteToModel(serieList)
             } else {

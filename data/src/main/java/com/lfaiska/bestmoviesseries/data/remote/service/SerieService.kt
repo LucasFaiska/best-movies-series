@@ -5,11 +5,12 @@ import com.lfaiska.bestmoviesseries.data.remote.entity.SerieDetailRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.SerieRemoteEntity
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface SerieService {
 
     @GET("/tv/popular")
-    suspend fun getSeries(): ListRemoteEntity<SerieRemoteEntity>
+    suspend fun getSeries(@Query("page") page: Int): ListRemoteEntity<SerieRemoteEntity>
 
     @GET("/tv/{serieId}")
     suspend fun getSerie(@Path("serieId") serieId: Long): SerieDetailRemoteEntity

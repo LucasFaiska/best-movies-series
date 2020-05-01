@@ -13,6 +13,7 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
+import org.mockito.ArgumentMatchers.anyInt
 
 class SerieRepositoryTest {
 
@@ -47,16 +48,16 @@ class SerieRepositoryTest {
             every { mapper.mapRemoteToLocal(serieListRemote) } returns serieListLocal
             every { mapper.mapRemoteToModel(serieListRemote) } returns serieListModel
             coEvery { connection.isAvailable() } returns true
-            coEvery { remote.getSeries() } returns serieListRemote
+            coEvery { remote.getSeries(anyInt()) } returns serieListRemote
             coEvery { local.saveSeries(serieListLocal) } returns Unit
 
-            val result = repository.getSeries()
+            val result = repository.getSeries(anyInt())
 
             assert(result == serieListModel)
 
             coVerify(Ordering.SEQUENCE) {
                 connection.isAvailable()
-                remote.getSeries()
+                remote.getSeries(anyInt())
                 mapper.mapRemoteToLocal(serieListRemote)
                 local.saveSeries(serieListLocal)
                 mapper.mapRemoteToModel(serieListRemote)
@@ -74,7 +75,7 @@ class SerieRepositoryTest {
             coEvery { connection.isAvailable() } returns false
             coEvery { local.getSeries() } returns serieListLocal
 
-            val result = repository.getSeries()
+            val result = repository.getSeries(anyInt())
 
             assert(result == serieListModel)
 
@@ -97,18 +98,18 @@ class SerieRepositoryTest {
             every { mapper.mapRemoteToLocal(serieListRemote) } returns serieListLocal
             every { mapper.mapRemoteToModel(serieListRemote) } returns serieListModel
             coEvery { connection.isAvailable() } returns true
-            coEvery { remote.getSeries() } throws Exception()
+            coEvery { remote.getSeries(anyInt()) } throws Exception()
             coEvery { local.saveSeries(serieListLocal) } returns Unit
 
             try {
-                repository.getSeries()
+                repository.getSeries(anyInt())
             } catch (exception: SerieRepositoryException) {
                 assert(exception.method == "getSeries")
             }
 
             coVerify(Ordering.SEQUENCE) {
                 connection.isAvailable()
-                remote.getSeries()
+                remote.getSeries(anyInt())
             }
         }
     }

@@ -1,7 +1,5 @@
 package com.lfaiska.bestmoviesseries.data.remote.datasource.serie
 
-import com.lfaiska.bestmoviesseries.data.remote.datasource.serie.SerieRemoteDataSource
-import com.lfaiska.bestmoviesseries.data.remote.datasource.serie.SerieRemoteDataSourceImpl
 import com.lfaiska.bestmoviesseries.data.remote.entity.ListRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.SerieDetailRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.SerieRemoteEntity
@@ -15,6 +13,7 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
+import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.ArgumentMatchers.anyLong
 import retrofit2.HttpException
 
@@ -37,15 +36,15 @@ class SerieRemoteDataSourceTest {
 
         runBlocking {
             coEvery {
-                service.getSeries()
+                service.getSeries(anyInt())
             } returns serieListRemoteEntityMock
 
-            val result = dataSource.getSeries()
+            val result = dataSource.getSeries(anyInt())
 
             assert(serieListRemoteEntityMock == result)
 
             coVerify(Ordering.SEQUENCE) {
-                service.getSeries()
+                service.getSeries(anyInt())
             }
         }
     }
@@ -55,10 +54,10 @@ class SerieRemoteDataSourceTest {
         runBlocking {
             setupGetSeriesHttpExceptionMock(401)
 
-            dataSource.getSeries()
+            dataSource.getSeries(anyInt())
 
             coVerify(Ordering.SEQUENCE) {
-                service.getSeries()
+                service.getSeries(anyInt())
             }
         }
     }
@@ -68,10 +67,10 @@ class SerieRemoteDataSourceTest {
         runBlocking {
             setupGetSeriesHttpExceptionMock(404)
 
-            dataSource.getSeries()
+            dataSource.getSeries(anyInt())
 
             coVerify(Ordering.SEQUENCE) {
-                service.getSeries()
+                service.getSeries(anyInt())
             }
         }
     }
@@ -81,10 +80,10 @@ class SerieRemoteDataSourceTest {
         runBlocking {
             setupGetSeriesHttpExceptionMock(500)
 
-            dataSource.getSeries()
+            dataSource.getSeries(anyInt())
 
             coVerify(Ordering.SEQUENCE) {
-                service.getSeries()
+                service.getSeries(anyInt())
             }
         }
     }
@@ -94,10 +93,10 @@ class SerieRemoteDataSourceTest {
         runBlocking {
             setupGetSeriesHttpExceptionMock(417)
 
-            dataSource.getSeries()
+            dataSource.getSeries(anyInt())
 
             coVerify(Ordering.SEQUENCE) {
-                service.getSeries()
+                service.getSeries(anyInt())
             }
         }
     }
@@ -108,7 +107,7 @@ class SerieRemoteDataSourceTest {
         every { httpExceptionMock.code() } returns httpErrorCode
 
         coEvery {
-            service.getSeries()
+            service.getSeries(anyInt())
         } throws httpExceptionMock
     }
 
