@@ -6,14 +6,11 @@ import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-@Entity(tableName = "movie")
-data class MovieLocalEntity (
+@Entity(tableName = "serie")
+data class SerieDataLocalEntity (
     @PrimaryKey
     val id: Long,
-    val posterPath: String,
     val voteAverage: Double,
     val popularity: Double,
-    val overview: String,
-    val title: String,
-    val releaseDate: Long
-): Parcelable
+    val firstAirDate: String
+) : Parcelable

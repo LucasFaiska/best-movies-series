@@ -10,7 +10,7 @@ import retrofit2.http.Query
 interface SerieService {
 
     @GET("/tv/popular")
-    suspend fun getSeries(@Query("page") page: Int): PagedListRemoteEntity<SerieRemoteEntity>
+    suspend fun getSeries(@Query("page") page: Int, @Query("value") language: String): PagedListRemoteEntity<SerieRemoteEntity>
 
     @GET("/tv/{serieId}")
     suspend fun getSerie(@Path("serieId") serieId: Long): SerieDetailRemoteEntity

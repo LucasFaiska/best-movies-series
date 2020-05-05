@@ -5,7 +5,7 @@ import com.lfaiska.bestmoviesseries.data.repository.serie.SerieModel
 import com.lfaiska.bestmoviesseries.domain.model.PagedList
 import com.lfaiska.bestmoviesseries.domain.model.Serie
 
-class SerieMapper() {
+class SerieMapper {
 
     fun mapSeriePagedList(pagedListModel: PagedListModel<SerieModel>) =
         PagedList(

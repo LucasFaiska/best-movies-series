@@ -5,7 +5,7 @@ import com.lfaiska.bestmoviesseries.data.remote.service.SerieService
 
 class SerieRemoteDataSourceImpl(private val service: SerieService) : SerieRemoteDataSource, BaseRemoteDataSource() {
 
-    override suspend fun getSeries(page: Int) = performRequest { service.getSeries(page) }
+    override suspend fun getSeries(page: Int, language: String) = performRequest { service.getSeries(page, language) }
 
     override suspend fun getSerie(serieId: Long) =
         performRequest { service.getSerie(serieId) }

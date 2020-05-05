@@ -3,8 +3,7 @@ package com.lfaiska.bestmoviesseries.data.local.serie
 import com.lfaiska.bestmoviesseries.data.local.dao.SerieDao
 import com.lfaiska.bestmoviesseries.data.local.datasource.serie.SerieLocalDataSource
 import com.lfaiska.bestmoviesseries.data.local.datasource.serie.SerieLocalDataSourceImpl
-import com.lfaiska.bestmoviesseries.data.local.entity.MovieLocalEntity
-import com.lfaiska.bestmoviesseries.data.local.entity.SerieLocalEntity
+import com.lfaiska.bestmoviesseries.data.local.entity.SerieDataLocalEntity
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.runBlocking
@@ -26,7 +25,7 @@ class SerieLocalDataSourceTest {
 
     @Test
     fun `when local data source call room get series successfully should return a list of SerieLocalEntity`() {
-        val serieListLocalEntityMock = mockk<List<SerieLocalEntity>>()
+        val serieListLocalEntityMock = mockk<List<SerieDataLocalEntity>>()
 
         runBlocking {
             coEvery {
@@ -66,7 +65,7 @@ class SerieLocalDataSourceTest {
 
     @Test
     fun `when local data source call room save series successfully should save a list of SerieLocalEntity on room database`() {
-        val serieListLocalEntityMock = mockk<List<SerieLocalEntity>>()
+        val serieListLocalEntityMock = mockk<List<SerieDataLocalEntity>>()
 
         runBlocking {
             coEvery {
@@ -83,7 +82,7 @@ class SerieLocalDataSourceTest {
 
     @Test
     fun `when local data source call room save series with a Exceptions should throws it`() {
-        val serieListLocalEntityMock = mockk<List<SerieLocalEntity>>()
+        val serieListLocalEntityMock = mockk<List<SerieDataLocalEntity>>()
         val exceptionMock = mockk<Exception>()
 
         runBlocking {

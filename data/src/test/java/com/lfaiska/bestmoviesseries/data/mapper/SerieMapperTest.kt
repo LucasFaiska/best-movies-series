@@ -1,6 +1,6 @@
 package com.lfaiska.bestmoviesseries.data.mapper
 
-import com.lfaiska.bestmoviesseries.data.local.entity.SerieLocalEntity
+import com.lfaiska.bestmoviesseries.data.local.entity.SerieDataLocalEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.PagedListRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.SerieRemoteEntity
 import com.lfaiska.bestmoviesseries.data.repository.serie.SerieModel
@@ -10,7 +10,7 @@ import org.junit.Test
 class SerieMapperTest {
 
     lateinit var remoteSerieList: PagedListRemoteEntity<SerieRemoteEntity>
-    lateinit var localSerieList: List<SerieLocalEntity>
+    lateinit var localSerieList: List<SerieDataLocalEntity>
 
     val mapper = SerieMapper()
 
@@ -41,7 +41,7 @@ class SerieMapperTest {
         )
 
         localSerieList = listOf(
-            SerieLocalEntity(
+            SerieDataLocalEntity(
                 31917,
                 "/vC324sdfcS313vh9QXwijLIHPJp.jpg",
                 5.04,
@@ -50,7 +50,7 @@ class SerieMapperTest {
                 "Pretty Little Liars",
                 "2015-05-27"
             ),
-            SerieLocalEntity(
+            SerieDataLocalEntity(
                 62560,
                 "/esN3gWb1P091xExLddD2nh4zmi3.jpg",
                 7.5,
@@ -68,7 +68,7 @@ class SerieMapperTest {
 
         assert(
             seriesListLocalMappedFromRemote[0] ==
-                    SerieLocalEntity(
+                    SerieDataLocalEntity(
                         31917,
                         "/vC324sdfcS313vh9QXwijLIHPJp.jpg",
                         5.04,
@@ -81,7 +81,7 @@ class SerieMapperTest {
 
         assert(
             seriesListLocalMappedFromRemote[1] ==
-                    SerieLocalEntity(
+                    SerieDataLocalEntity(
                         62560,
                         "/esN3gWb1P091xExLddD2nh4zmi3.jpg",
                         7.5,

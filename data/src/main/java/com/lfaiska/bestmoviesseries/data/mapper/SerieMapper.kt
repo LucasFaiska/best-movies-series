@@ -1,6 +1,8 @@
 package com.lfaiska.bestmoviesseries.data.mapper
 
+import com.lfaiska.bestmoviesseries.data.local.entity.SerieDataLocalEntity
 import com.lfaiska.bestmoviesseries.data.local.entity.SerieLocalEntity
+import com.lfaiska.bestmoviesseries.data.local.entity.SerieLocaleDataLocalEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.PagedListRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.SerieRemoteEntity
 import com.lfaiska.bestmoviesseries.data.repository.base.PagedListModel
@@ -13,13 +15,19 @@ class SerieMapper :
         remote.results.map { serieRemoteEntity ->
             with(serieRemoteEntity) {
                 SerieLocalEntity(
-                    id,
-                    posterPath,
-                    voteAverage,
-                    popularity,
-                    overview,
-                    name,
-                    firstAirDate
+                    SerieDataLocalEntity(
+                        id,
+                        voteAverage,
+                        popularity,
+                        firstAirDate
+                    ),
+                    SerieLocaleDataLocalEntity(
+                        id,
+                        "PT-br",
+                        posterPath,
+                        overview,
+                        name
+                    )
                 )
             }
         }
@@ -50,13 +58,13 @@ class SerieMapper :
             local.map { serieLocalEntity ->
                 with(serieLocalEntity) {
                     SerieModel(
-                        id,
-                        posterPath,
-                        voteAverage,
-                        popularity,
-                        overview,
-                        name,
-                        firstAirDate
+                        serieDataLocalEntity.id,
+                        serieLocaleDataLocalEntity.posterImage,
+                        serieDataLocalEntity.voteAverage,
+                        serieDataLocalEntity.popularity,
+                        serieLocaleDataLocalEntity.overview,
+                        serieLocaleDataLocalEntity.name,
+                        serieDataLocalEntity.firstAirDate
                     )
                 }
             }

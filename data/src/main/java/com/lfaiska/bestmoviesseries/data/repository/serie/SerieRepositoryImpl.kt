@@ -14,10 +14,10 @@ class SerieRepositoryImpl(
     val mapper: SerieMapper
 ) : SerieRepository {
 
-    override suspend fun getSeries(page: Int): PagedListModel<SerieModel> {
+    override suspend fun getSeries(page: Int, language: String): PagedListModel<SerieModel> {
         return try {
             if (connection.isAvailable()) {
-                val serieList = remote.getSeries(page)
+                val serieList = remote.getSeries(page, language)
                 local.saveSeries(mapper.mapRemoteToLocal(serieList))
                 mapper.mapRemoteToModel(serieList)
             } else {

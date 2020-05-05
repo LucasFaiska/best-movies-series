@@ -1,7 +1,7 @@
 package com.lfaiska.bestmoviesseries.data.repository.serie
 
 import com.lfaiska.bestmoviesseries.data.local.datasource.serie.SerieLocalDataSource
-import com.lfaiska.bestmoviesseries.data.local.entity.SerieLocalEntity
+import com.lfaiska.bestmoviesseries.data.local.entity.SerieDataLocalEntity
 import com.lfaiska.bestmoviesseries.data.mapper.SerieMapper
 import com.lfaiska.bestmoviesseries.data.remote.connection.Connection
 import com.lfaiska.bestmoviesseries.data.remote.datasource.serie.SerieRemoteDataSource
@@ -40,7 +40,7 @@ class SerieRepositoryTest {
     @Test
     fun `when repository calls getSeries and there is connection available should retrieve a ListModel of SerieModel from remote and save a List of SerieLocalEntity on local`() {
         val serieListModel = mockk<PagedListModel<SerieModel>>()
-        val serieListLocal = mockk<List<SerieLocalEntity>>()
+        val serieListLocal = mockk<List<SerieDataLocalEntity>>()
         val serieListRemote = mockk<PagedListRemoteEntity<SerieRemoteEntity>>()
 
         runBlocking {
@@ -68,7 +68,7 @@ class SerieRepositoryTest {
     @Test
     fun `when repository calls getSeries and there is no connection available should returns a ListModel of SerieModel from local`() {
         val serieListModel = mockk<PagedListModel<SerieModel>>()
-        val serieListLocal = mockk<List<SerieLocalEntity>>()
+        val serieListLocal = mockk<List<SerieDataLocalEntity>>()
 
         runBlocking {
             every { mapper.mapLocalToModel(serieListLocal) } returns serieListModel
@@ -90,7 +90,7 @@ class SerieRepositoryTest {
     @Test
     fun `when repository calls getSeries and remote getSeries throws a exception should throws a SerieRepositoryException with method value getSeries`() {
         val serieListModel = mockk<PagedListModel<SerieModel>>()
-        val serieListLocal = mockk<List<SerieLocalEntity>>()
+        val serieListLocal = mockk<List<SerieDataLocalEntity>>()
         val serieListRemote = mockk<PagedListRemoteEntity<SerieRemoteEntity>>()
 
         runBlocking {
