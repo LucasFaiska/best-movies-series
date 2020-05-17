@@ -1,33 +1,25 @@
 package com.lfaiska.bestmoviesseries.data.mapper
 
-import com.lfaiska.bestmoviesseries.data.local.entity.SerieDataLocalEntity
 import com.lfaiska.bestmoviesseries.data.local.entity.SerieLocalEntity
-import com.lfaiska.bestmoviesseries.data.local.entity.SerieLocaleDataLocalEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.PagedListRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.SerieRemoteEntity
 import com.lfaiska.bestmoviesseries.data.repository.base.PagedListModel
 import com.lfaiska.bestmoviesseries.data.repository.serie.SerieModel
 
-class SerieMapper :
-    Mapper<PagedListRemoteEntity<SerieRemoteEntity>, List<SerieLocalEntity>, PagedListModel<SerieModel>> {
+class SerieMapper : Mapper<PagedListRemoteEntity<SerieRemoteEntity>, List<SerieLocalEntity>, PagedListModel<SerieModel>> {
 
-    override fun mapRemoteToLocal(remote: PagedListRemoteEntity<SerieRemoteEntity>) =
+    override fun mapRemoteToLocal(remote: PagedListRemoteEntity<SerieRemoteEntity>, language: String) =
         remote.results.map { serieRemoteEntity ->
             with(serieRemoteEntity) {
                 SerieLocalEntity(
-                    SerieDataLocalEntity(
-                        id,
-                        voteAverage,
-                        popularity,
-                        firstAirDate
-                    ),
-                    SerieLocaleDataLocalEntity(
-                        id,
-                        "PT-br",
-                        posterPath,
-                        overview,
-                        name
-                    )
+                    id,
+                    language,
+                    posterPath,
+                    voteAverage,
+                    popularity,
+                    overview,
+                    name,
+                    firstAirDate
                 )
             }
         }
@@ -58,13 +50,13 @@ class SerieMapper :
             local.map { serieLocalEntity ->
                 with(serieLocalEntity) {
                     SerieModel(
-                        serieDataLocalEntity.id,
-                        serieLocaleDataLocalEntity.posterImage,
-                        serieDataLocalEntity.voteAverage,
-                        serieDataLocalEntity.popularity,
-                        serieLocaleDataLocalEntity.overview,
-                        serieLocaleDataLocalEntity.name,
-                        serieDataLocalEntity.firstAirDate
+                        id,
+                        posterImage,
+                        voteAverage,
+                        popularity,
+                        overview,
+                        name,
+                        firstAirDate
                     )
                 }
             }

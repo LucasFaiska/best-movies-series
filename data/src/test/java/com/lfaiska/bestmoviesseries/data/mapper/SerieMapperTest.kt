@@ -1,6 +1,6 @@
 package com.lfaiska.bestmoviesseries.data.mapper
 
-import com.lfaiska.bestmoviesseries.data.local.entity.SerieDataLocalEntity
+import com.lfaiska.bestmoviesseries.data.local.entity.SerieLocalEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.PagedListRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.entity.SerieRemoteEntity
 import com.lfaiska.bestmoviesseries.data.repository.serie.SerieModel
@@ -10,7 +10,7 @@ import org.junit.Test
 class SerieMapperTest {
 
     lateinit var remoteSerieList: PagedListRemoteEntity<SerieRemoteEntity>
-    lateinit var localSerieList: List<SerieDataLocalEntity>
+    lateinit var localSerieList: List<SerieLocalEntity>
 
     val mapper = SerieMapper()
 
@@ -41,8 +41,9 @@ class SerieMapperTest {
         )
 
         localSerieList = listOf(
-            SerieDataLocalEntity(
+            SerieLocalEntity(
                 31917,
+                "pt-BR",
                 "/vC324sdfcS313vh9QXwijLIHPJp.jpg",
                 5.04,
                 47.432451,
@@ -50,8 +51,9 @@ class SerieMapperTest {
                 "Pretty Little Liars",
                 "2015-05-27"
             ),
-            SerieDataLocalEntity(
+            SerieLocalEntity(
                 62560,
+                "pt-BR",
                 "/esN3gWb1P091xExLddD2nh4zmi3.jpg",
                 7.5,
                 37.882356,
@@ -64,12 +66,13 @@ class SerieMapperTest {
 
     @Test
     fun testRemoteToLocal() {
-        val seriesListLocalMappedFromRemote = mapper.mapRemoteToLocal(remoteSerieList)
+        val seriesListLocalMappedFromRemote = mapper.mapRemoteToLocal(remoteSerieList, "pt-BR")
 
         assert(
             seriesListLocalMappedFromRemote[0] ==
-                    SerieDataLocalEntity(
+                    SerieLocalEntity(
                         31917,
+                        "pt-BR",
                         "/vC324sdfcS313vh9QXwijLIHPJp.jpg",
                         5.04,
                         47.432451,
@@ -81,8 +84,9 @@ class SerieMapperTest {
 
         assert(
             seriesListLocalMappedFromRemote[1] ==
-                    SerieDataLocalEntity(
+                    SerieLocalEntity(
                         62560,
+                        "pt-BR",
                         "/esN3gWb1P091xExLddD2nh4zmi3.jpg",
                         7.5,
                         37.882356,

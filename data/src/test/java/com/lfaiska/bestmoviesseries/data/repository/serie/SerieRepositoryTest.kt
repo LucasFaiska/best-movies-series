@@ -1,7 +1,7 @@
 package com.lfaiska.bestmoviesseries.data.repository.serie
 
 import com.lfaiska.bestmoviesseries.data.local.datasource.serie.SerieLocalDataSource
-import com.lfaiska.bestmoviesseries.data.local.entity.SerieDataLocalEntity
+import com.lfaiska.bestmoviesseries.data.local.entity.SerieLocalEntity
 import com.lfaiska.bestmoviesseries.data.mapper.SerieMapper
 import com.lfaiska.bestmoviesseries.data.remote.connection.Connection
 import com.lfaiska.bestmoviesseries.data.remote.datasource.serie.SerieRemoteDataSource
@@ -13,7 +13,9 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
+import org.mockito.ArgumentMatchers
 import org.mockito.ArgumentMatchers.anyInt
+import org.mockito.ArgumentMatchers.anyString
 
 class SerieRepositoryTest {
 
@@ -40,25 +42,26 @@ class SerieRepositoryTest {
     @Test
     fun `when repository calls getSeries and there is connection available should retrieve a ListModel of SerieModel from remote and save a List of SerieLocalEntity on local`() {
         val serieListModel = mockk<PagedListModel<SerieModel>>()
-        val serieListLocal = mockk<List<SerieDataLocalEntity>>()
+        val serieListLocal = mockk<List<SerieLocalEntity>>()
         val serieListRemote = mockk<PagedListRemoteEntity<SerieRemoteEntity>>()
+        val languageMock = anyString()
 
         runBlocking {
             every { mapper.mapLocalToModel(serieListLocal) } returns serieListModel
-            every { mapper.mapRemoteToLocal(serieListRemote) } returns serieListLocal
+            every { mapper.mapRemoteToLocal(serieListRemote, languageMock) } returns serieListLocal
             every { mapper.mapRemoteToModel(serieListRemote) } returns serieListModel
             coEvery { connection.isAvailable() } returns true
-            coEvery { remote.getSeries(anyInt()) } returns serieListRemote
+            coEvery { remote.getSeries(anyInt(), languageMock) } returns serieListRemote
             coEvery { local.saveSeries(serieListLocal) } returns Unit
 
-            val result = repository.getSeries(anyInt())
+            val result = repository.getSeries(anyInt(), languageMock)
 
             assert(result == serieListModel)
 
             coVerify(Ordering.SEQUENCE) {
                 connection.isAvailable()
-                remote.getSeries(anyInt())
-                mapper.mapRemoteToLocal(serieListRemote)
+                remote.getSeries(anyInt(), languageMock)
+                mapper.mapRemoteToLocal(serieListRemote, languageMock)
                 local.saveSeries(serieListLocal)
                 mapper.mapRemoteToModel(serieListRemote)
             }
@@ -68,20 +71,21 @@ class SerieRepositoryTest {
     @Test
     fun `when repository calls getSeries and there is no connection available should returns a ListModel of SerieModel from local`() {
         val serieListModel = mockk<PagedListModel<SerieModel>>()
-        val serieListLocal = mockk<List<SerieDataLocalEntity>>()
+        val serieListLocal = mockk<List<SerieLocalEntity>>()
+        val languageMock = anyString()
 
         runBlocking {
             every { mapper.mapLocalToModel(serieListLocal) } returns serieListModel
             coEvery { connection.isAvailable() } returns false
-            coEvery { local.getSeries() } returns serieListLocal
+            coEvery { local.getSeries(languageMock) } returns serieListLocal
 
-            val result = repository.getSeries(anyInt())
+            val result = repository.getSeries(anyInt(), languageMock)
 
             assert(result == serieListModel)
 
             coVerify(Ordering.SEQUENCE) {
                 connection.isAvailable()
-                local.getSeries()
+                local.getSeries(languageMock)
                 mapper.mapLocalToModel(serieListLocal)
             }
         }
@@ -90,26 +94,27 @@ class SerieRepositoryTest {
     @Test
     fun `when repository calls getSeries and remote getSeries throws a exception should throws a SerieRepositoryException with method value getSeries`() {
         val serieListModel = mockk<PagedListModel<SerieModel>>()
-        val serieListLocal = mockk<List<SerieDataLocalEntity>>()
+        val serieListLocal = mockk<List<SerieLocalEntity>>()
         val serieListRemote = mockk<PagedListRemoteEntity<SerieRemoteEntity>>()
+        val languageMock = anyString()
 
         runBlocking {
             every { mapper.mapLocalToModel(serieListLocal) } returns serieListModel
-            every { mapper.mapRemoteToLocal(serieListRemote) } returns serieListLocal
+            every { mapper.mapRemoteToLocal(serieListRemote, languageMock) } returns serieListLocal
             every { mapper.mapRemoteToModel(serieListRemote) } returns serieListModel
             coEvery { connection.isAvailable() } returns true
-            coEvery { remote.getSeries(anyInt()) } throws Exception()
+            coEvery { remote.getSeries(anyInt(), languageMock) } throws Exception()
             coEvery { local.saveSeries(serieListLocal) } returns Unit
 
             try {
-                repository.getSeries(anyInt())
+                repository.getSeries(anyInt(), languageMock)
             } catch (exception: SerieRepositoryException) {
                 assert(exception.method == "getSeries")
             }
 
             coVerify(Ordering.SEQUENCE) {
                 connection.isAvailable()
-                remote.getSeries(anyInt())
+                remote.getSeries(anyInt(), languageMock)
             }
         }
     }

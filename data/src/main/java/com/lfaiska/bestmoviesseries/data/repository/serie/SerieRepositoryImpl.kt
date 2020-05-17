@@ -18,10 +18,10 @@ class SerieRepositoryImpl(
         return try {
             if (connection.isAvailable()) {
                 val serieList = remote.getSeries(page, language)
-                local.saveSeries(mapper.mapRemoteToLocal(serieList))
+                local.saveSeries(mapper.mapRemoteToLocal(serieList, language))
                 mapper.mapRemoteToModel(serieList)
             } else {
-                mapper.mapLocalToModel(local.getSeries())
+                mapper.mapLocalToModel(local.getSeries(language))
             }
         } catch (exception: Exception) {
             throw SerieRepositoryException(method = "getSeries")

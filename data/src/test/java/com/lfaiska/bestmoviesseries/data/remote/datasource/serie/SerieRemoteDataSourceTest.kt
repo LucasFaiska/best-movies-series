@@ -13,8 +13,8 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
-import org.mockito.ArgumentMatchers.anyInt
-import org.mockito.ArgumentMatchers.anyLong
+import org.mockito.ArgumentMatchers
+import org.mockito.ArgumentMatchers.*
 import retrofit2.HttpException
 
 class SerieRemoteDataSourceTest {
@@ -33,81 +33,91 @@ class SerieRemoteDataSourceTest {
     @Test
     fun `when remote data source call service get series successfully should return a SerieListRemoteEntity`() {
         val serieListRemoteEntityMock = mockk<PagedListRemoteEntity<SerieRemoteEntity>>()
+        val languageMock = anyString()
 
         runBlocking {
             coEvery {
-                service.getSeries(anyInt())
+                service.getSeries(anyInt(), languageMock)
             } returns serieListRemoteEntityMock
 
-            val result = dataSource.getSeries(anyInt())
+            val result = dataSource.getSeries(anyInt(), languageMock)
 
             assert(serieListRemoteEntityMock == result)
 
             coVerify(Ordering.SEQUENCE) {
-                service.getSeries(anyInt())
+                service.getSeries(anyInt(), languageMock)
             }
         }
     }
 
     @Test(expected = UnauthorizedResourceException::class)
     fun `when remote data source call service get series with 401 http error should throw UnauthorizedResourceException`() {
+        val languageMock = anyString()
+
         runBlocking {
             setupGetSeriesHttpExceptionMock(401)
 
-            dataSource.getSeries(anyInt())
+            dataSource.getSeries(anyInt(), languageMock)
 
             coVerify(Ordering.SEQUENCE) {
-                service.getSeries(anyInt())
+                service.getSeries(anyInt(), languageMock)
             }
         }
     }
 
     @Test(expected = ResourceNotFoundException::class)
     fun `when remote data source call service get series with 404 http error should throw ResourceNotFoundException`() {
+        val languageMock = anyString()
+
         runBlocking {
             setupGetSeriesHttpExceptionMock(404)
 
-            dataSource.getSeries(anyInt())
+            dataSource.getSeries(anyInt(), languageMock)
 
             coVerify(Ordering.SEQUENCE) {
-                service.getSeries(anyInt())
+                service.getSeries(anyInt(), languageMock)
             }
         }
     }
 
     @Test(expected = InternalErrorException::class)
     fun `when remote data source call service get series with 500 http error should throw InternalErrorException`() {
+        val languageMock = anyString()
+
         runBlocking {
             setupGetSeriesHttpExceptionMock(500)
 
-            dataSource.getSeries(anyInt())
+            dataSource.getSeries(anyInt(), languageMock)
 
             coVerify(Ordering.SEQUENCE) {
-                service.getSeries(anyInt())
+                service.getSeries(anyInt(), languageMock)
             }
         }
     }
 
     @Test(expected = UnhandledErrorException::class)
     fun `when remote data source call service get series with another http error should throw UnhandledErrorException`() {
+        val languageMock = anyString()
+
         runBlocking {
             setupGetSeriesHttpExceptionMock(417)
 
-            dataSource.getSeries(anyInt())
+            dataSource.getSeries(anyInt(), languageMock)
 
             coVerify(Ordering.SEQUENCE) {
-                service.getSeries(anyInt())
+                service.getSeries(anyInt(), languageMock)
             }
         }
     }
 
     private fun setupGetSeriesHttpExceptionMock(httpErrorCode: Int) {
+        val languageMock = anyString()
         val httpExceptionMock = mockk<HttpException>()
 
         every { httpExceptionMock.code() } returns httpErrorCode
 
         coEvery {
-            service.getSeries(anyInt())
+            service.getSeries(anyInt(), languageMock)
         } throws httpExceptionMock
     }
 
