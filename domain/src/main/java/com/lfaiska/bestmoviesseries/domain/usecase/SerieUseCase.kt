@@ -11,6 +11,6 @@ class SerieUseCase(
 ) {
 
     suspend fun getSeries(page: Int, language: String): PagedList<Serie> {
-        return mapper.mapSeriePagedList(repository.getSeries(page))
+        return mapper.mapSeriePagedList(repository.getSeries(page, language))
     }
 }
