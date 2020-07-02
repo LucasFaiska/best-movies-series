@@ -31,7 +31,7 @@ class SerieRemoteDataSourceTest {
     }
 
     @Test
-    fun `when remote data source call service get series successfully should return a SerieListRemoteEntity`() {
+    fun `when invoke getSeries and retrieve a PagedListRemoteEntity of SerieListRemoteEntity from service should returns it`() {
         val serieListRemoteEntityMock = mockk<PagedListRemoteEntity<SerieRemoteEntity>>()
         val languageMock = anyString()
 
@@ -51,7 +51,7 @@ class SerieRemoteDataSourceTest {
     }
 
     @Test(expected = UnauthorizedResourceException::class)
-    fun `when remote data source call service get series with 401 http error should throw UnauthorizedResourceException`() {
+    fun `when invoke getSeries and get a 401 http error from service should throw UnauthorizedResourceException`() {
         val languageMock = anyString()
 
         runBlocking {
@@ -66,7 +66,7 @@ class SerieRemoteDataSourceTest {
     }
 
     @Test(expected = ResourceNotFoundException::class)
-    fun `when remote data source call service get series with 404 http error should throw ResourceNotFoundException`() {
+    fun `when invoke getSeries and get a 404 http error from service should throw ResourceNotFoundException`() {
         val languageMock = anyString()
 
         runBlocking {
@@ -81,7 +81,7 @@ class SerieRemoteDataSourceTest {
     }
 
     @Test(expected = InternalErrorException::class)
-    fun `when remote data source call service get series with 500 http error should throw InternalErrorException`() {
+    fun `when invoke getSeries and get a 500 http error from service should throw InternalErrorException`() {
         val languageMock = anyString()
 
         runBlocking {
@@ -96,7 +96,7 @@ class SerieRemoteDataSourceTest {
     }
 
     @Test(expected = UnhandledErrorException::class)
-    fun `when remote data source call service get series with another http error should throw UnhandledErrorException`() {
+    fun `when invoke getSeries and get another http error from service should throw UnhandledErrorException`() {
         val languageMock = anyString()
 
         runBlocking {
@@ -122,7 +122,7 @@ class SerieRemoteDataSourceTest {
     }
 
     @Test
-    fun `when remote data source call service get serie details successfully should return a SerieDetailRemoteEntity`() {
+    fun `when invoke getSerie and retrieve SerieDetailRemoteEntity from service should returns it`() {
         val serieDetailRemoteEntityMock = mockk<SerieDetailRemoteEntity>()
         val serieIdMock = anyLong()
 
@@ -142,7 +142,7 @@ class SerieRemoteDataSourceTest {
     }
 
     @Test(expected = UnauthorizedResourceException::class)
-    fun `when remote data source call service get serie details with 401 http error should throw UnauthorizedResourceException`() {
+    fun `when invoke getSerie and get a 401 http error from service should throw UnauthorizedResourceException`() {
         val serieIdMock = anyLong()
 
         runBlocking {
@@ -157,7 +157,7 @@ class SerieRemoteDataSourceTest {
     }
 
     @Test(expected = ResourceNotFoundException::class)
-    fun `when remote data source call service get serie details with 404 http error should throw ResourceNotFoundException`() {
+    fun `when invoke getSerie and get a 404 http error from service should throw ResourceNotFoundException`() {
         val serieIdMock = anyLong()
 
         runBlocking {
@@ -172,7 +172,7 @@ class SerieRemoteDataSourceTest {
     }
 
     @Test(expected = InternalErrorException::class)
-    fun `when remote data source call service get serie details with 500 http error should throw InternalErrorException`() {
+    fun `when invoke getSerie and get a 500 http error from service should throw InternalErrorException`() {
         val serieIdMock = anyLong()
 
         runBlocking {
@@ -187,7 +187,7 @@ class SerieRemoteDataSourceTest {
     }
 
     @Test(expected = UnhandledErrorException::class)
-    fun `when remote data source call service get serie details with another http error should throw UnhandledErrorException`() {
+    fun `when invoke getSerie and get another http error from service should throw UnhandledErrorException`() {
         val serieIdMock = anyLong()
 
         runBlocking {
@@ -212,7 +212,7 @@ class SerieRemoteDataSourceTest {
     }
 
     @Test
-    fun `when remote data source call service get similar series successfully should return a SerieListRemoteEntity`() {
+    fun `when invoke getSimilarSeries and retrieve a PagedListRemoteEntity of SerieListRemoteEntity from service should returns it`() {
         val serieListRemoteEntityMock = mockk<PagedListRemoteEntity<SerieRemoteEntity>>()
         val serieIdMock = anyLong()
 
@@ -232,7 +232,7 @@ class SerieRemoteDataSourceTest {
     }
 
     @Test(expected = UnauthorizedResourceException::class)
-    fun `when remote data source call service get similar series with 401 http error should throw UnauthorizedResourceException`() {
+    fun `when invoke getSimilarSeries and get a 401 http error from service should throw UnauthorizedResourceException`() {
         val serieIdMock = anyLong()
 
         runBlocking {
@@ -247,7 +247,7 @@ class SerieRemoteDataSourceTest {
     }
 
     @Test(expected = ResourceNotFoundException::class)
-    fun `when remote data source call service get similar series with 404 http error should throw ResourceNotFoundException`() {
+    fun `when invoke getSimilarSeries and get a 404 http error from service should throw ResourceNotFoundException`() {
         val serieIdMock = anyLong()
 
         runBlocking {
@@ -262,7 +262,7 @@ class SerieRemoteDataSourceTest {
     }
 
     @Test(expected = InternalErrorException::class)
-    fun `when remote data source call service get similar series with 500 http error should throw InternalErrorException`() {
+    fun `when invoke getSimilarSeries and get a 500 http error from service should throw InternalErrorException`() {
         val serieIdMock = anyLong()
 
         runBlocking {
@@ -277,7 +277,7 @@ class SerieRemoteDataSourceTest {
     }
 
     @Test(expected = UnhandledErrorException::class)
-    fun `when remote data source call service get similar series with another http error should throw UnhandledErrorException`() {
+    fun `when invoke getSimilarSeries and get another http error from service should throw UnhandledErrorException`() {
         val serieIdMock = anyLong()
 
         runBlocking {

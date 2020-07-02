@@ -3,9 +3,8 @@ package com.lfaiska.bestmoviesseries.data.repository.language
 import com.lfaiska.bestmoviesseries.data.preference.Preference
 import com.lfaiska.bestmoviesseries.data.preference.entity.LanguagePreferenceEntity
 
-//@TODO extract to maps
 class LanguageRepositoryImpl(private val preference: Preference) : LanguageRepository {
-    override fun getSelectedLanguage() : LanguageModel {
+    override fun getSelectedLanguage(): LanguageModel {
         return preference.get(LanguagePreferenceEntity::class.java)?.let { language ->
             LanguageModel(language.id, language.name)
         } ?: run {
@@ -14,8 +13,11 @@ class LanguageRepositoryImpl(private val preference: Preference) : LanguageRepos
     }
 
     override fun setSelectedLanguage(language: LanguageModel) {
-        preference.put(language.apply {
-            LanguagePreferenceEntity(this.id, this.name)
-        }, LanguageModel::class.java)
+        language.apply {
+            preference.put(
+                LanguagePreferenceEntity(this.id, this.name),
+                LanguagePreferenceEntity::class.java
+            )
+        }
     }
 }

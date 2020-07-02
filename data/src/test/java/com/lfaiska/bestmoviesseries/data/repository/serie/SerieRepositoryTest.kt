@@ -13,7 +13,6 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
-import org.mockito.ArgumentMatchers
 import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.ArgumentMatchers.anyString
 
@@ -40,7 +39,7 @@ class SerieRepositoryTest {
     }
 
     @Test
-    fun `when repository calls getSeries and there is connection available should retrieve a ListModel of SerieModel from remote and save a List of SerieLocalEntity on local`() {
+    fun `when invoke getSeries and there is connection available should retrieve a PagedListModel of SerieModel from remote and save a List of SerieLocalEntity on local`() {
         val serieListModel = mockk<PagedListModel<SerieModel>>()
         val serieListLocal = mockk<List<SerieLocalEntity>>()
         val serieListRemote = mockk<PagedListRemoteEntity<SerieRemoteEntity>>()
@@ -69,7 +68,7 @@ class SerieRepositoryTest {
     }
 
     @Test
-    fun `when repository calls getSeries and there is no connection available should returns a ListModel of SerieModel from local`() {
+    fun `when invoke getSeries and there is no connection available should returns a PagedListModel of SerieModel from local`() {
         val serieListModel = mockk<PagedListModel<SerieModel>>()
         val serieListLocal = mockk<List<SerieLocalEntity>>()
         val languageMock = anyString()
@@ -92,7 +91,7 @@ class SerieRepositoryTest {
     }
 
     @Test
-    fun `when repository calls getSeries and remote getSeries throws a exception should throws a SerieRepositoryException with method value getSeries`() {
+    fun `when invoke getSeries and remote getSeries throws a exception should throws a SerieRepositoryException with method value getSeries`() {
         val serieListModel = mockk<PagedListModel<SerieModel>>()
         val serieListLocal = mockk<List<SerieLocalEntity>>()
         val serieListRemote = mockk<PagedListRemoteEntity<SerieRemoteEntity>>()
