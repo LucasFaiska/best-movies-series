@@ -1,12 +1,11 @@
-package com.lfaiska.bestmoviesseries.domain.model
+package com.lfaiska.bestmoviesseries.data.repository.model
 
-data class Serie (
+data class SerieModel (
     val id: Long,
     val posterPath: String?,
     val voteAverage: Double?,
     val popularity: Double?,
     val overview: String?,
     val name: String?,
-    val firstAirDate: String?,
-    val isFavorite: Boolean = false
+    val firstAirDate: String?
 )

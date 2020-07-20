@@ -13,7 +13,6 @@ import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
-import org.mockito.ArgumentMatchers
 import org.mockito.ArgumentMatchers.*
 import retrofit2.HttpException
 
@@ -128,15 +127,15 @@ class SerieRemoteDataSourceTest {
 
         runBlocking {
             coEvery {
-                service.getSerie(serieIdMock)
+                service.getSerieDetails(serieIdMock)
             } returns serieDetailRemoteEntityMock
 
-            val result = dataSource.getSerie(serieIdMock)
+            val result = dataSource.getSerieDetails(serieIdMock)
 
             assert(serieDetailRemoteEntityMock == result)
 
             coVerify(Ordering.SEQUENCE) {
-                service.getSerie(serieIdMock)
+                service.getSerieDetails(serieIdMock)
             }
         }
     }
@@ -148,10 +147,10 @@ class SerieRemoteDataSourceTest {
         runBlocking {
             setupGetSerieDetailsHttpExceptionMock(serieIdMock, 401)
 
-            dataSource.getSerie(serieIdMock)
+            dataSource.getSerieDetails(serieIdMock)
 
             coVerify(Ordering.SEQUENCE) {
-                service.getSerie(serieIdMock)
+                service.getSerieDetails(serieIdMock)
             }
         }
     }
@@ -163,10 +162,10 @@ class SerieRemoteDataSourceTest {
         runBlocking {
             setupGetSerieDetailsHttpExceptionMock(serieIdMock, 404)
 
-            dataSource.getSerie(serieIdMock)
+            dataSource.getSerieDetails(serieIdMock)
 
             coVerify(Ordering.SEQUENCE) {
-                service.getSerie(serieIdMock)
+                service.getSerieDetails(serieIdMock)
             }
         }
     }
@@ -178,10 +177,10 @@ class SerieRemoteDataSourceTest {
         runBlocking {
             setupGetSerieDetailsHttpExceptionMock(serieIdMock, 500)
 
-            dataSource.getSerie(serieIdMock)
+            dataSource.getSerieDetails(serieIdMock)
 
             coVerify(Ordering.SEQUENCE) {
-                service.getSerie(serieIdMock)
+                service.getSerieDetails(serieIdMock)
             }
         }
     }
@@ -193,10 +192,10 @@ class SerieRemoteDataSourceTest {
         runBlocking {
             setupGetSerieDetailsHttpExceptionMock(serieIdMock, 417)
 
-            dataSource.getSerie(serieIdMock)
+            dataSource.getSerieDetails(serieIdMock)
 
             coVerify(Ordering.SEQUENCE) {
-                service.getSerie(serieIdMock)
+                service.getSerieDetails(serieIdMock)
             }
         }
     }
@@ -207,7 +206,7 @@ class SerieRemoteDataSourceTest {
         every { httpExceptionMock.code() } returns httpErrorCode
 
         coEvery {
-            service.getSerie(serieId)
+            service.getSerieDetails(serieId)
         } throws httpExceptionMock
     }
 

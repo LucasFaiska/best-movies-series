@@ -11,4 +11,7 @@ interface SerieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveSeries(registers: List<SerieLocalEntity>)
+
+    @Query("SELECT * FROM serie WHERE id = :serieId AND language = :language")
+    suspend fun getSerieDetails(serieId: Long, language: String): SerieLocalEntity
 }

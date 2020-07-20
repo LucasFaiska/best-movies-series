@@ -13,7 +13,7 @@ interface SerieService {
     suspend fun getSeries(@Query("page") page: Int, @Query("value") language: String): PagedListRemoteEntity<SerieRemoteEntity>
 
     @GET("/tv/{serieId}")
-    suspend fun getSerie(@Path("serieId") serieId: Long): SerieDetailRemoteEntity
+    suspend fun getSerieDetails(@Path("serieId") serieId: Long): SerieDetailRemoteEntity
 
     @GET("/tv/{serieId}/similar")
     suspend fun getSimilarSeries(@Path("serieId") serieId: Long): PagedListRemoteEntity<SerieRemoteEntity>

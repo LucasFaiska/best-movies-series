@@ -11,4 +11,7 @@ class SerieLocalDataSourceImpl(private val dao: SerieDao) : SerieLocalDataSource
     override suspend fun saveSeries(series: List<SerieLocalEntity>) {
         dao.saveSeries(series)
     }
+
+    override suspend fun getSerieDetails(serieId: Long, language: String): SerieLocalEntity =
+        dao.getSerieDetails(serieId, language)
 }

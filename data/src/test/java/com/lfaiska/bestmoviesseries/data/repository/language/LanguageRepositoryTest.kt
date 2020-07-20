@@ -35,7 +35,7 @@ class LanguageRepositoryTest {
     @Test(expected = LanguageRepositoryException::class)
     fun `when invoke getSelectedLanguage and retrieve null from preference should throws a LanguageRepositoryException`() {
         every { preference.get(LanguagePreferenceEntity::class.java) } returns null
-        val result = repository.getSelectedLanguage()
+        repository.getSelectedLanguage()
     }
 
     @Test

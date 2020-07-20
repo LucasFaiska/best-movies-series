@@ -1,30 +1,91 @@
 package com.lfaiska.bestmoviesseries.data.repository.serie
 
 import com.lfaiska.bestmoviesseries.data.local.datasource.serie.SerieLocalDataSource
-import com.lfaiska.bestmoviesseries.data.mapper.SerieMapper
+import com.lfaiska.bestmoviesseries.data.local.entity.SerieLocalEntity
 import com.lfaiska.bestmoviesseries.data.remote.connection.Connection
 import com.lfaiska.bestmoviesseries.data.remote.datasource.serie.SerieRemoteDataSource
+import com.lfaiska.bestmoviesseries.data.remote.entity.PagedListRemoteEntity
+import com.lfaiska.bestmoviesseries.data.remote.entity.SerieRemoteEntity
 import com.lfaiska.bestmoviesseries.data.repository.base.PagedListModel
+import com.lfaiska.bestmoviesseries.data.repository.model.SerieModel
 import java.lang.Exception
 
 class SerieRepositoryImpl(
     val remote: SerieRemoteDataSource,
     val local: SerieLocalDataSource,
-    val connection: Connection,
-    val mapper: SerieMapper
+    private val connection: Connection
 ) : SerieRepository {
 
     override suspend fun getSeries(page: Int, language: String): PagedListModel<SerieModel> {
         return try {
             if (connection.isAvailable()) {
-                val serieList = remote.getSeries(page, language)
-                local.saveSeries(mapper.mapRemoteToLocal(serieList, language))
-                mapper.mapRemoteToModel(serieList)
+                val seriesList = remote.getSeries(page, language)
+                local.saveSeries(mapSeriesListRemoteToLocal(seriesList, language))
+                mapSeriesListRemoteToModel(seriesList)
             } else {
-                mapper.mapLocalToModel(local.getSeries(language))
+                mapSeriesListLocalToModel(local.getSeries(language))
             }
         } catch (exception: Exception) {
             throw SerieRepositoryException(method = "getSeries")
         }
     }
+
+    private fun mapSeriesListRemoteToLocal(
+        seriesList: PagedListRemoteEntity<SerieRemoteEntity>,
+        language: String
+    ): List<SerieLocalEntity> =
+        seriesList.results.map { serieRemoteEntity ->
+            with(serieRemoteEntity) {
+                SerieLocalEntity(
+                    id = id,
+                    language = language,
+                    posterPath = posterPath,
+                    voteAverage = voteAverage,
+                    popularity = popularity,
+                    overview = overview,
+                    name = name,
+                    firstAirDate = firstAirDate
+                )
+            }
+        }
+
+    private fun mapSeriesListRemoteToModel(
+        seriesList: PagedListRemoteEntity<SerieRemoteEntity>
+    ) = with(seriesList) {
+        PagedListModel(
+            page,
+            seriesList.results.map { serieRemoteEntity ->
+                with(serieRemoteEntity) {
+                    SerieModel(
+                        id,
+                        posterPath,
+                        voteAverage,
+                        popularity,
+                        overview,
+                        name,
+                        firstAirDate
+                    )
+                }
+            }
+        )
+    }
+
+    private fun mapSeriesListLocalToModel(
+        seriesList: List<SerieLocalEntity>
+    ) = PagedListModel(
+        0,
+        seriesList.map { serieLocalEntity ->
+            with(serieLocalEntity) {
+                SerieModel(
+                    id,
+                    posterPath,
+                    voteAverage,
+                    popularity,
+                    overview,
+                    name,
+                    firstAirDate
+                )
+            }
+        }
+    )
 }
