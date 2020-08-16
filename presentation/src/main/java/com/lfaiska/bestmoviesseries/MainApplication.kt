@@ -1,7 +1,6 @@
 package com.lfaiska.bestmoviesseries
 
 import android.app.Application
-import com.lfaiska.bestmoviesseries.data.remote.di.retrofitModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -13,7 +12,6 @@ class MainApplication : Application() {
         startKoin {
             androidLogger(Level.DEBUG)
             androidContext(this@MainApplication)
-            modules(listOf(retrofitModule))
         }
     }
 }
