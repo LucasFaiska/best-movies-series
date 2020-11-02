@@ -8,11 +8,16 @@ import com.lfaiska.bestmoviesseries.scenes.splash.SplashScreen
 @Composable
 fun MoviesApp() {
     MaterialTheme {
+        //@TODO
+        // Full screen
+        // Background Image
+        // App name on front
+        // Animation?
         SplashScreen()
     }
 }
 
-@Preview
+@Preview(showDecoration = true, showBackground = true)
 @Composable
 fun PreviewMoviesApp() {
     MoviesApp()
