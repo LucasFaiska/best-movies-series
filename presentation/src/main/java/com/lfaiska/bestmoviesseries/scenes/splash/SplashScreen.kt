@@ -13,18 +13,7 @@ import androidx.ui.tooling.preview.Preview
 @Composable
 fun SplashScreen() {
     Scaffold {
-        Row {
-            Box(
-                modifier = Modifier.preferredSize(100.dp, 100.dp),
-            )
-            Box(
-                modifier = Modifier.preferredSize(100.dp, 100.dp),
-            )
-            Box(
-                modifier = Modifier.preferredSize(100.dp, 100.dp),
-            )
-            Text(text = "Splash Screen 1")
-        }
+        Text(text = "Splash Screen")
     }
 }
 
