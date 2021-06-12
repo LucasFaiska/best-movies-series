@@ -1,8 +1,8 @@
-package com.lfaiska.bestmoviesseries.data.remote.entity
+package com.lfaiska.bestmoviesseries.data.remote.dao
 
 import com.google.gson.annotations.SerializedName
 
-data class CreatorRemoteEntity (
+data class CreatorResponse (
     val id: Long,
     val name: String,
     @SerializedName("profile_path")

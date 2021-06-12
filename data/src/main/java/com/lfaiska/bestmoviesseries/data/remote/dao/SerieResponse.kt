@@ -1,9 +1,9 @@
-package com.lfaiska.bestmoviesseries.data.remote.entity
+package com.lfaiska.bestmoviesseries.data.remote.dao
 
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-data class SerieRemoteEntity(
+data class SerieResponse(
     val id: Long,
     @SerializedName("poster_path")
     val posterPath: String,

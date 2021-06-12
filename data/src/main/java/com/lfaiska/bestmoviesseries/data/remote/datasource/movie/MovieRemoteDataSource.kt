@@ -1,11 +1,11 @@
 package com.lfaiska.bestmoviesseries.data.remote.datasource.movie
 
-import com.lfaiska.bestmoviesseries.data.remote.entity.PagedListRemoteEntity
-import com.lfaiska.bestmoviesseries.data.remote.entity.MovieDetailRemoteEntity
-import com.lfaiska.bestmoviesseries.data.remote.entity.MovieRemoteEntity
+import com.lfaiska.bestmoviesseries.data.remote.dao.PagedListResponse
+import com.lfaiska.bestmoviesseries.data.remote.dao.MovieDetailResponse
+import com.lfaiska.bestmoviesseries.data.remote.dao.MovieResponse
 
 interface MovieRemoteDataSource {
-    suspend fun getMovies(): PagedListRemoteEntity<MovieRemoteEntity>
-    suspend fun getMovie(movieId: Long): MovieDetailRemoteEntity
-    suspend fun getSimilarMovies(movieId: Long): PagedListRemoteEntity<MovieRemoteEntity>
+    suspend fun getMovies(): PagedListResponse<MovieResponse>
+    suspend fun getMovie(movieId: Long): MovieDetailResponse
+    suspend fun getSimilarMovies(movieId: Long): PagedListResponse<MovieResponse>
 }

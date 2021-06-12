@@ -4,8 +4,8 @@ import com.lfaiska.bestmoviesseries.data.local.datasource.serie.SerieLocalDataSo
 import com.lfaiska.bestmoviesseries.data.local.entity.SerieLocalEntity
 import com.lfaiska.bestmoviesseries.data.remote.connection.Connection
 import com.lfaiska.bestmoviesseries.data.remote.datasource.serie.SerieRemoteDataSource
-import com.lfaiska.bestmoviesseries.data.remote.entity.PagedListRemoteEntity
-import com.lfaiska.bestmoviesseries.data.remote.entity.SerieRemoteEntity
+import com.lfaiska.bestmoviesseries.data.remote.dao.PagedListResponse
+import com.lfaiska.bestmoviesseries.data.remote.dao.SerieResponse
 import com.lfaiska.bestmoviesseries.data.repository.base.PagedListModel
 import com.lfaiska.bestmoviesseries.data.repository.model.SerieModel
 import java.lang.Exception
@@ -31,7 +31,7 @@ class SerieRepositoryImpl(
     }
 
     private fun mapSeriesListRemoteToLocal(
-        seriesList: PagedListRemoteEntity<SerieRemoteEntity>,
+        seriesList: PagedListResponse<SerieResponse>,
         language: String
     ): List<SerieLocalEntity> =
         seriesList.results.map { serieRemoteEntity ->
@@ -50,7 +50,7 @@ class SerieRepositoryImpl(
         }
 
     private fun mapSeriesListRemoteToModel(
-        seriesList: PagedListRemoteEntity<SerieRemoteEntity>
+        seriesList: PagedListResponse<SerieResponse>
     ) = with(seriesList) {
         PagedListModel(
             page,

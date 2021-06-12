@@ -1,8 +1,8 @@
 package com.lfaiska.bestmoviesseries.data.remote.datasource.serie
 
-import com.lfaiska.bestmoviesseries.data.remote.entity.PagedListRemoteEntity
-import com.lfaiska.bestmoviesseries.data.remote.entity.SerieDetailRemoteEntity
-import com.lfaiska.bestmoviesseries.data.remote.entity.SerieRemoteEntity
+import com.lfaiska.bestmoviesseries.data.remote.dao.PagedListRemoteEntity
+import com.lfaiska.bestmoviesseries.data.remote.dao.SerieDetailRemoteEntity
+import com.lfaiska.bestmoviesseries.data.remote.dao.SerieRemoteEntity
 import com.lfaiska.bestmoviesseries.data.remote.exception.InternalErrorException
 import com.lfaiska.bestmoviesseries.data.remote.exception.ResourceNotFoundException
 import com.lfaiska.bestmoviesseries.data.remote.exception.UnauthorizedResourceException

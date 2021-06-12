@@ -1,8 +1,8 @@
 package com.lfaiska.bestmoviesseries.data.remote.service
 
-import com.lfaiska.bestmoviesseries.data.remote.entity.PagedListRemoteEntity
-import com.lfaiska.bestmoviesseries.data.remote.entity.SerieDetailRemoteEntity
-import com.lfaiska.bestmoviesseries.data.remote.entity.SerieRemoteEntity
+import com.lfaiska.bestmoviesseries.data.remote.dao.PagedListResponse
+import com.lfaiska.bestmoviesseries.data.remote.dao.SerieDetailResponse
+import com.lfaiska.bestmoviesseries.data.remote.dao.SerieResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -10,12 +10,12 @@ import retrofit2.http.Query
 interface SerieService {
 
     @GET("/tv/popular")
-    suspend fun getSeries(@Query("page") page: Int, @Query("value") language: String): PagedListRemoteEntity<SerieRemoteEntity>
+    suspend fun getSeries(@Query("page") page: Int, @Query("value") language: String): PagedListResponse<SerieResponse>
 
     @GET("/tv/{serieId}")
-    suspend fun getSerieDetails(@Path("serieId") serieId: Long): SerieDetailRemoteEntity
+    suspend fun getSerieDetails(@Path("serieId") serieId: Long): SerieDetailResponse
 
     @GET("/tv/{serieId}/similar")
-    suspend fun getSimilarSeries(@Path("serieId") serieId: Long): PagedListRemoteEntity<SerieRemoteEntity>
+    suspend fun getSimilarSeries(@Path("serieId") serieId: Long): PagedListResponse<SerieResponse>
 
 }
