@@ -1,6 +1,6 @@
 package com.lfaiska.bestmoviesseries.data.local.datasource.movie
 
-import com.lfaiska.bestmoviesseries.data.local.entity.MovieLocalEntity
+import com.lfaiska.bestmoviesseries.data.local.dto.MovieLocalEntity
 
 interface MovieLocalDataSource {
     suspend fun getMovies(): List<MovieLocalEntity>

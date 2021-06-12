@@ -1,8 +1,8 @@
 package com.lfaiska.bestmoviesseries.data.remote.service
 
-import com.lfaiska.bestmoviesseries.data.remote.dao.PagedListResponse
-import com.lfaiska.bestmoviesseries.data.remote.dao.SerieDetailResponse
-import com.lfaiska.bestmoviesseries.data.remote.dao.SerieResponse
+import com.lfaiska.bestmoviesseries.data.remote.dto.PagedListResponse
+import com.lfaiska.bestmoviesseries.data.remote.dto.SerieDetailResponse
+import com.lfaiska.bestmoviesseries.data.remote.dto.SerieResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

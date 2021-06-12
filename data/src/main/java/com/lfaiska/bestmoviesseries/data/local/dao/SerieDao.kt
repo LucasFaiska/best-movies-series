@@ -3,7 +3,7 @@ package com.lfaiska.bestmoviesseries.data.local.dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.lfaiska.bestmoviesseries.data.local.entity.SerieLocalEntity
+import com.lfaiska.bestmoviesseries.data.local.dto.SerieLocalEntity
 
 interface SerieDao {
     @Query("SELECT * FROM serie WHERE language = :language")

@@ -1,7 +1,7 @@
 package com.lfaiska.bestmoviesseries.data.local.datasource.movie
 
 import com.lfaiska.bestmoviesseries.data.local.dao.MovieDao
-import com.lfaiska.bestmoviesseries.data.local.entity.MovieLocalEntity
+import com.lfaiska.bestmoviesseries.data.local.dto.MovieLocalEntity
 
 class MovieLocalDataSourceImpl(private val dao: MovieDao) : MovieLocalDataSource {
 

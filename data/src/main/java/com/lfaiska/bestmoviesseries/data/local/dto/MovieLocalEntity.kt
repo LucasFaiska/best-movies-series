@@ -1,4 +1,4 @@
-package com.lfaiska.bestmoviesseries.data.local.entity
+package com.lfaiska.bestmoviesseries.data.local.dto
 
 import android.os.Parcelable
 import androidx.room.Entity

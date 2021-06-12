@@ -1,8 +1,8 @@
 package com.lfaiska.bestmoviesseries.data.remote.datasource.movie
 
-import com.lfaiska.bestmoviesseries.data.remote.dao.PagedListResponse
-import com.lfaiska.bestmoviesseries.data.remote.dao.MovieDetailResponse
-import com.lfaiska.bestmoviesseries.data.remote.dao.MovieResponse
+import com.lfaiska.bestmoviesseries.data.remote.dto.PagedListResponse
+import com.lfaiska.bestmoviesseries.data.remote.dto.MovieDetailResponse
+import com.lfaiska.bestmoviesseries.data.remote.dto.MovieResponse
 
 interface MovieRemoteDataSource {
     suspend fun getMovies(): PagedListResponse<MovieResponse>

@@ -3,7 +3,7 @@ package com.lfaiska.bestmoviesseries.data.local.movie
 import com.lfaiska.bestmoviesseries.data.local.dao.MovieDao
 import com.lfaiska.bestmoviesseries.data.local.datasource.movie.MovieLocalDataSource
 import com.lfaiska.bestmoviesseries.data.local.datasource.movie.MovieLocalDataSourceImpl
-import com.lfaiska.bestmoviesseries.data.local.entity.MovieLocalEntity
+import com.lfaiska.bestmoviesseries.data.local.dto.MovieLocalEntity
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.runBlocking

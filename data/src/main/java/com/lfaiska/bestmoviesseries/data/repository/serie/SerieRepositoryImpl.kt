@@ -1,11 +1,11 @@
 package com.lfaiska.bestmoviesseries.data.repository.serie
 
 import com.lfaiska.bestmoviesseries.data.local.datasource.serie.SerieLocalDataSource
-import com.lfaiska.bestmoviesseries.data.local.entity.SerieLocalEntity
+import com.lfaiska.bestmoviesseries.data.local.dto.SerieLocalEntity
 import com.lfaiska.bestmoviesseries.data.remote.connection.Connection
 import com.lfaiska.bestmoviesseries.data.remote.datasource.serie.SerieRemoteDataSource
-import com.lfaiska.bestmoviesseries.data.remote.dao.PagedListResponse
-import com.lfaiska.bestmoviesseries.data.remote.dao.SerieResponse
+import com.lfaiska.bestmoviesseries.data.remote.dto.PagedListResponse
+import com.lfaiska.bestmoviesseries.data.remote.dto.SerieResponse
 import com.lfaiska.bestmoviesseries.data.repository.base.PagedListModel
 import com.lfaiska.bestmoviesseries.data.repository.model.SerieModel
 import java.lang.Exception

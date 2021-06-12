@@ -1,4 +1,4 @@
-package com.lfaiska.bestmoviesseries.data.remote.dao
+package com.lfaiska.bestmoviesseries.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 import java.util.*
